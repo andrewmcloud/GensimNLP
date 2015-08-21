@@ -1,0 +1,2521 @@
+Approved for Public Release; Distribution Unlimited
+Case # 09-2639
+1
+
+Rapid sequence homology assessment by
+subsampling the genome space using difference sets
+Andrzej K. Brodzik
+
+Abstract Availability of DNA data is growing roughly at the
+rate specified by Moores law. In many molecular biology applications this data needs to be compared with a reference sequence,
+either to establish similarity of genomes, or to identify functionally homologous subsequences. Current approaches based on
+pair-wise sequence alignments are computationally expensive and
+often data dependent. To ameliorate this problem, alternative,
+reduced complexity sequence comparison schemes, designed to
+capture the essential features of genomes need to be explored. In
+this work a new sequence comparison approach, based on difference sets models, is proposed. These models are conceptually
+appropriate, as they quantify, in a certain sense, the degree of
+both sequence complexity and symbol repetition. Moreover, it is
+shown that difference sets are abundant in bacterial genomes
+and that they coincide with homologous sequence segments.
+Subsequently, compact representations of DNA sequences are
+constructed in the difference set space, and an alignment of these
+representations is obtained. This procedure permits identification
+of homologous DNA sequences and determination of fine genomic
+differences between these sequences in a small fraction of the
+time required by current methods. As an illustration of efficacy
+of the difference set approach, characterization of indels in
+closely related bacillus anthracis strains is performed, resulting
+in the discovery of two previously unreported collections of
+polymorphisms. In conclusion, an extension of the difference set
+approach to almost difference set families is outlined, availing
+a new mathematical framework for sequence complexity studies
+and phylogenetic analyses.
+Index Terms DNA sequence alignment, bacillus anthracis,
+sequence complexity, correlation, cyclic difference sets, DNA
+sequence homology assessment, DNA sequence markers, phaseonly matched filter, random sequence, repetition.
+
+I. I NTRODUCTION
+In order to try to understand genome organization, we must
+explore the distribution of genes along the chromosome.
+However, to do this effectively, we should generalize the
+concept of a neighborhood to many more types of vicinities
+than the mere succession of genes in the genomic text.
+Antoine Danchin
+In a recent book, Delphic boat, one of the pioneers of microbial genomics, Antoine Danchin, deliberates on the role mathematics and information theory might play in future molecular
+biology research [16]. At the outset of the investigation, he
+recalls an ancient question (originally posed to an oracle in
+Delphi) whether a boat whose planks have all been replaced
+over time is still the same boat. Is it therefore - he asks - the
+individual components (genes, codons, nucleotides, etc), or the
+Andrzej K. Brodzik is with The MITRE Corporation, 202 Burlington Road,
+Bedford, MA 01730 (abrodzik@mitre.org)
+
+totality of relationships between them that defines the whole
+(genome)? The question seems to be of both fundamental and
+timely importance, as we embark on the journey of deciphering
+the genomic code. Should we attempt to deduce biological
+function and organism phylogeny simply by comparing individual parts, or rather, should we set a more ambitious
+goal, and try to guess the overall blueprint for the genomic
+construction? Danchin suggests that the latter endeavor might
+be more fruitful. If so, we should then investigate, without
+undue prejudices, what are the constituent components of
+genomes and how do they fit together into the whole. One of
+the first steps towards accomplishing this goal is to identify the
+atomic components of the genomic sequence and to investigate
+correlation of their distribution with a biological function.
+In this work we begin this journey by identifying the
+genomic atoms with short random strings, associated with
+algebraic constructs known as cyclic difference sets, and by
+exploring the utility of these strings in a key molecular
+biology task, DNA sequence homology evaluation. By homology evaluation we mean sequence comparison performed
+by matching subsampled versions of the original sequences.
+Such evaluation is of both theoretical and practical interest,
+as it permits, at a reduced computational cost, (1) identifying,
+from a large pool of data, those sequences that are in some
+way close to the query sequence, and (2) performing a
+rough sequence alignment that provides an indication of the
+overall sequence similarity. For arbitrary sequences, in the
+implementation described in this work, this alignment will
+not necessarily account for all individual nucleotide insertions
+and deletions, or indels, but it will account for regions of
+significant sequence variation, such as insertion and deletion
+segments. However, for highly homologous sequences, such as
+human or bacterial strain DNA, this alignment will produce a
+list of all or nearly all genomic differences. This approach is
+appropriate for general large-scale sequence comparison tasks,
+such as matching a query sequence against a sequence library
+(e.g., NCBI GenBank, currently holding data in excess of
+
+in sequence length), or for more specialized searches
+(e.g., rapid bacterial strain identification), where the goal is to
+identify a small collection of highly homologous sequences
+and to generate a list of all genomic variations between
+sequences in that collection. As an illustration of efficacy
+of the difference set approach, characterization of indels in
+two closely related bacillus anthracis strains is performed,
+resulting in the discovery of previously unreported collections
+of polymorphisms.
+Alignment-free sequence homology evaluation was considered previously in many works, including [4], [10], [15], [21],
+ The MITRE Corporation. All rights reserved.
+
+2
+
+[23], [33], and [47]. A useful review of earlier research in this
+area is given in [53]. Homology evaluation techniques can
+be divided into two main categories: (1) methods based on
+word frequency and (2) methods that do not involve counting
+segments of fixed length. Methods in the first category utilize
+statistics of word frequency to identify homologous regions
+in sequences and frequency vectors to compute a distance
+between these sequences. Methods in the second category
+are more diverse. They seek sequence representations that
+are scale independent and utilize distance measures rooted in
+Shannon information theory, Kolmogorov complexity theory,
+or chaos theory. Regardless of the approach, most of these
+methods focus, in contrast to this work, on protein sequence
+similarity.
+The approach described here formally belongs to the first
+category. It is distinct, however, in several important respects
+delineated below. The proposed procedure consists of two,
+essentially algebraic computations: the construction of sequences of homology markers and the alignment of these
+sequences by a fast implementation of the cross-correlation
+method. The replacement of the analysis of DNA sequences
+with an analysis of homology marker sequences results in a
+significant reduction of the number of computations required.
+This number is proportional to the ratio of lengths of these
+sequences. The choice of homology markers is motivated
+by recent developments in the DNA sequence complexity
+assessment, inspired by ideas borrowed from combinatorics
+[8]. The point of departure in this assessment is a proposition
+that specifies a complex sequence as a sequence that contains
+no repetitions [13], [54]. In combinatorics such a sequence is
+associated with the concept of a difference set [31], [52]. As
+sequences derived from difference sets are repetition-free, the
+study of DNA sequence complexity can then be cast as a study
+of difference sets. This approach has several advantages:
+ The concept of complexity becomes closely coupled with
+many biologically relevant phenomena that coincide with
+the occurrence of repetitive DNA symbols [7], [46],
+ The use of difference sets enables algebraic analysis,
+which is advantageous in many applications, as statistics
+of DNA sequences vary significantly and reliable estimates are difficult to obtain [26],
+ In contrast with several standard approaches [32], [30],
+difference set based complexity measure is easily computable.
+These advantages are most readily realized in the design of
+a sequence complexity assessment scheme. However, since
+one of the goals of the DNA sequence complexity analysis
+is the assessment of information distance between genomes,
+it follows that difference sets which this analysis relies on
+are also appropriate candidates for DNA sequence homology
+markers.
+The concept of difference sets is in certain respects similar
+to the idea of spaced seeds that was recently proposed to improve efficacy of sequence alignment algorithms [9], [37]. The
+advantage of spaced seeds comes about because hits to spaced
+seeds are more independent than hits to non-spaced seeds [55].
+While spaced seeds often incorporate probabilistic a priori
+information such as open reading frame constraints, thereby
+
+tailoring the design to the application at hand, difference sets
+are general algebraic constructs, defined by their correlation
+properties. This is beneficial as, apart from a convenient association with the atoms of randomness, difference sets are more
+likely to be free from recent, repetition-based mutations and
+from sequencing errors which occur more often in repetitive
+sequence regions. Difference sets might also have a slight
+advantage over arbitrary strings in terms of abundance: in
+arbitrary sequences short non-repetitive patterns tend to occur
+more often than those that include repetitions [17].
+Apart from distinct constructions, there is also a difference
+in how spaced seeds and difference sets are embedded in their
+respective applications. While, like with spaced seeds, we use
+difference sets to identify regions of sequence similarity, we
+depart from the usual sequence alignment approach in that
+we do not attempt to grow difference sets to larger matching
+sequences, but instead use the distribution of difference sets in
+DNA sequences directly to evaluate DNA sequence homology.
+This approach reduces dimensionality of the problem significantly. We show that for certain bacterial sequences the ratio
+of DNA and difference set sequence lengths is of the order of a
+few hundreds. Similar data reduction is expected for genomes
+of other organisms.
+The second component of the homology evaluation procedure involves a fast realization of the cross-correlation
+based sequence alignment algorithm. This realization is based
+on sequence matching in the Fourier space. Multiplicative
+complexity of this approach is of the order of  , which
+is much better than the multiplicative complexity afforded by
+most standard methods. This approach is not entirely new.
+Fourier space cross-correlation has been explored previously
+in several works, including [25] and [49]. Here, we propose the
+use of a variation on this theme, described in [6], that relies
+on matching Fourier space sequences by their phases only.
+This variation has the advantage that certain spurious sequence
+matches due to repetitive components of the DNA sequence
+are avoided, and therefore unambiguous determination of
+matching sequence segments can be made.
+The content of the paper is as follows. Section II introduces
+the concept of difference sets. Section III reviews the phaseonly approach to cross-correlation. Section IV explores the
+abundance of difference sets in bacterial genomes. Section V
+describes the two main results of the paper: the difference
+set based sequence homology assessment algorithm and the
+characterization of indels in two bacillus anthracis strains.
+Section VI compares computational efficiency of the algorithm
+with benchmarks. Section VII discusses extensions of the
+difference set model to almost difference set families. Section
+VIII summarizes results and outlines directions for further
+research.
+II. T HE DIFFERENCE SET MODEL
+In this section we define difference sets and show how they
+can be used to model pseudo-random DNA strings.
+A. DNA symbol representation
+The DNA sequence is a symbolic sequence made up of four
+letters  ,  ,  , and  , that represent the four nucleotides
+ The MITRE Corporation. All rights reserved.
+
+3
+
+of the genetic code: adenine, cytosine, guanine, and thymine.
+Prior to processing the DNA sequence, the symbolic characters
+have to be assigned numerical values. The simplest method of
+numerically representing the DNA sequence is to split it into
+four subsequences associated with the four nucleotides, and
+
+
+to denote by   and   the occurrence and absence of each
+letter in the relevant subsequence1. For example, the symbolic
+sequence
+
+    
+can be represented by the four binary subsequences
+   
+     
+    
+     
+
+ 
+ 
+ 
+ 
+
+Given this representation, each binary subsequence can then
+be analyzed independently.
+
+ is a   -difference set, then the set    is a
+  
+ -difference set. One of the well-known
+results permits verifying equivalence of difference sets. Two
+
+
+difference sets  and  are called equivalent if  has the
+form 
+some integer  relatively prime to  and for
+   . Itforfollows
+some 
+that shifts and reflections of difference
+sets are difference
+sets.
+Examples
+of 
+small
+in 
+    difference
+ , the   sets
+
+clude the   -difference
+set
+
+
+
+
+
+
+      , and the       -difference difference
+set
+
+    . A research in this field continues, and
+set 
+ 
+an up-to-date repository of difference sets with 
+is
+If
+
+
+maintained at www.ccrwest.org/diffsets/diff sets/index.html.
+One of the key properties of difference sets is their association
+with binary sequences with a perfect
+  autocorrelation.
+    two-valued
+For example, the
+-difference
+     
+set corresponds to the sequence
+. To see that this
+sequence has a two-valued autocorrelation observe that the
+inner product of any two rows of the following array yields
+the same value, equal in this case to one:
+      
+
+B. Cyclic difference sets
+
+    
+
+While difference set theory is considered an integral part of
+combinatorial design theory, the field incorporates methods
+from many branches of mathematics. One of the first mentions
+of difference sets was in connection with a certain problem
+in additive number theory [20], [50]. The systematic study
+of difference sets started with the paper by a group theorist,
+Marshall Hall [22], who introduced the concept of multipliers.
+Subsequent developments disclosed relation of difference sets
+to finite geometry techniques. Today, due to their association
+with sequences with ideal correlation properties, difference
+sets are used in several applications, including communications, radar, navigation, cryptography, coding theory, and
+statistical design. The seminal works on this subject are [5]
+and [31]; a useful tutorial is a chapter by Jungnickel and Pott
+in [43]; up to date results are summarized in [12].
+It is convenient to define difference sets using the language
+of group theory. Suppose  is the additive group of  integers
+modulo  and  is a  -subset of  . The set  is a 
+cyclic difference set of  if in the set of all differences of
+distinct elements in  ,
+
+      
+
+     
+  
+every nonzero element of  occurs exactly  number of times.
+
+Although formally cyclic difference sets are a subcategory of
+a larger family of combinatorial designs known as difference
+sets, for brevity in this work we will refer to cyclic difference
+sets simply as difference sets.
+The main unresolved problem in the study of difference sets
+pertains to their existence. There are many rules that guide
+construction of difference sets. For example, difference sets
+satisfy the well-known necessary condition
+
+             
+
+1 Alternative DNA symbol representations, using complex and hypercomplex number systems, convenient in certain tasks, are given, among others, in
+[2] and [7].
+
+    
+     
+     
+    
+
+The perfect autocorrelation property of sequences associated
+with difference sets suggests that difference sets can be used
+in DNA sequence complexity studies. Sequence complexity is
+intrinsically coupled with the lack of local regularities, or alternatively, with the concept of randomness. Since a sequence
+associated with a difference set displays no repetitions, such
+sequence can be referred to as algebraically random. In effect,
+information content of a DNA sequence can be assessed in
+terms of its relation to a difference set. The simplest way of
+performing this assessment is a direct comparison.
+Given the DNA symbol representation of previous subsection, the association of DNA subsequences with difference sets
+is straightforward. Take, for example, the sequence
+
+          
+This sequence can be represented by the four subsequences
+          
+          
+          
+           
+
+ 
+ 
+ 
+ 
+
+It follows from inspection that the first subsequence is asso
+
+ciated with the difference set   , the second and third
+ones are semi-periodic, and the forth one is of neither type 2 .
+2 It will be shown in Section VII that sequences of this type can be modeled
+by combinatorial generalizations of difference sets.
+
+ The MITRE Corporation. All rights reserved.
+
+4
+
+III. P HASE - ONLY F OURIER
+
+SPACE CROSS - CORRELATION
+
+One of the most efficient algorithms for DNA sequence
+alignment is the cross-correlation method. The main computations of the procedure are the discrete Fourier transform
+and a pointwise multiplication of two complex Fourier transform sequences. The overall computational complexity of the
+algorithm is    , which is significantly lower then 
+afforded by methods based on dynamic programming [34],
+[39], [51] and suffix trees [19], [29]. The popular BLASTn
+and MegaBLAST algorithms (of the BLAST family) are
+reputed to be faster; however, complexity of these methods is
+difficult to evaluate since the number of computations required
+depends on many parameters, including the length of the seed
+sequence, the drop-off value for seed extension, treatment
+of gaps, sequence similarity, etc. ([37], [28]). Computational
+complexity of the cross-correlation approach, on the other
+hand, is easily quantifiable, it does not depend on the data,
+and it does not have inherent limitations on the sequence size.
+This approach is the basis of several existing algorithms of
+which the best known is perhaps MAFFT ([25]).
+In [6] a comparison was made between the standard
+magnitude-and-phase cross-correlation and the lesser known,
+but closely related, phase-only cross-correlation A brief description of this approach is given below.
+Define the cyclic cross-correlation, or the MF (matched
+filter), of two real discrete sequences  and  by
+
+ 
+                         
+
+with   taken modulo  . Take   and  to be the discrete
+Fourier transforms of   and  , respectively.
+Since
+
+
+
+ 
+
+       
+
+the cross-correlation can be efficiently implemented by computing
+
+               
+
+An alternative measure of sequence similarity is given by
+the SPOMF (symmetric phase-only matched filter), defined by
+
+ 
+                        
+   
+
+
+
+
+      is equal to the cyclic shift
+The value 
+ produces
+of  that among all cyclic shifts
+the sequence
+  ofthen
+  . When
+
+most similar to  . When 
+
+ 
+then there might be several values of  for which    is
+
+greater than a pre-defined threshold. These values are called
+the dominant values of the phase-only cross-correlation. They
+correspond to cyclic shifts of  that produce alignments of
+segments of  and  . Increasing slightly the generality of
+the problem, one might choose  to be a query sequence
+and  a concatenation of all sequences in a database. In this
+case the analysis proceeds as before, with the difference that
+the dominant values of the cross-correlation point now to the
+most homologous sequences (with the query sequence) in the
+database. Since  and  are of disproportional lengths, it is
+
+often convenient to implement this computation by repeatedly
+correlating  with appropriately chosen segments of  .
+SPOMF had been proposed two decades ago in optical
+signal processing [24], and heuristic arguments have been
+made that the method is superior to the standard approach
+in terms of misalignment resolution and robustness to noise.
+Since then it has been successfully applied to image registration, watermarking, and sonar, among others. In [6] it
+was shown that when applied to DNA sequences SPOMF
+produces a higher accuracy sequence alignment by reducing
+the effect of spurious sequence segment matches that arise due
+to occurrence of symbol repetitions.
+IV. D IFFERENCE SETS
+
+IN BACTERIAL GENOMES
+
+In this section we investigate utility of the difference set
+model in DNA sequence analysis. In particular, we compare
+distributions of difference sets in several DNA sequences of
+varying degree of homology. By a distribution of difference
+sets we mean an indicator sequence of length equal to the
+length of the DNA sequence under consideration, where one
+marks the occurrence of a difference set in the DNA sequence
+and zero the lack of thereof. As part of this characterization,
+we will evaluate the relative abundance of difference sets in
+DNA sequences. This abundance informs both how similar
+these sequences are to an algebraically random reference
+sequence and the feasibility of construction of parsimonious
+representations of these sequences in the difference set space.
+We focus the investigation on the bacillus anthracis
+genome. The reason for this choice is the fact that bacillus
+anthracis strains are highly monomorphic, which makes differentiation of these sequences an especially difficult problem
+[27], [35], [36], [42], and the genome a good test case for
+efficacy of the proposed approach. In general, the bacillus
+anthracis genome is made up of chromosomal DNA and two
+plasmids, pXO1 and pXO2. The occurrence of the conserved
+plasmid sequences in the genome is particularly important,
+as it often coincides with the strain toxicity. However, not all
+strains contain both plasmids. Even when they do, the plasmid
+sequences need not be identical. Plasmids can be exchanged
+between distinct bacillus anthracis strains, undergoing in the
+process sequence alterations, including mutations, deletions
+and horizontal gene transfer. In effect, identification of these
+genomic differences is essential for determination of the
+bacillus anthracis genome recent evolutionary changes and for
+evaluation of the bacillus anthracis strain pathogenic potency.
+In the first experiment
+   we evaluated the abundance of
+the difference set   3 in two sequences of the bacillus
+anthracis pXO2 plasmid, associated with the strains Ames
+Ancestor
+and Pasteur (AF188935). The difference
+  (AE017335)
+
+set   was chosen because it is the shortest difference
+set and therefore it is likely to sample the DNA sequence
+at a higher density than other difference sets.
+  We found that
+the Ames Ancestor plasmid contains 1672   difference
+3 As described in section 2, a sequence contains a string associated with
+the difference set  if and only if any of the four binary subsequences
+contains a string  . For example, the sequence  contains
+ , while the sequence  does not.
+
+ The MITRE Corporation. All rights reserved.
+
+5
+
+sets (569 in  , 294 in  , 171 in  , and 638 difference sets
+in
+and the Pasteur plasmid contains 1691
+    subsequence),
+ difference sets (573 in  , 296 in  , 175 in  , and
+649 difference sets in  subsequences). The difference sets
+are dispersed fairly uniformly throughout the plasmids and the
+distribution of the difference sets in both sequences follows a
+similar pattern (Figure 1).
+Excluding certain relatively short (less than 500 bp (base
+pairs)) flanking sequences, the central portions of the Ames
+Ancestor and Pasteur plasmid sequences constitute segments
+of length 94,728 and 94,705 bp, respectively. These segments
+can be identified by matching the difference sets that are
+are located at the extremes of plasmids and are identical
+in both sequences. The segments vary at 75 places. The
+genomic differences include VNTRs (variable number tan
+dem repeats) (about   ), putative SNPs (single nucleotide
+
+polymorphisms) (about   ) and non-repeat related indels
+
+(insertions/deletions) (about  ). VNTRs are a small fraction
+of all significant (longer than 6 symbols) exact tandem repeats.
+The total number of tandem repeats in plasmids is 2178. This
+number is somewhat smaller than the number of difference
+sets, when both orientations of difference sets are accounted
+for (which then doubles the total number of difference sets).
+Considering the length of the difference set string, the abun 
+dance of difference sets in the plasmid sequence is about  ,
+which is similar to the abundance of SNPs and indels.
+1
+0.8
+
+of a large insertion segment between 44,000 and 48,000 bp
+in the plasmid sequence. Similar barcode mismatches can be
+observed in several other parts of pXO1, e.g., in the segment
+located between 117,000 and 161,000 bp.
+We repeated the above
+for the two larger difference
+  analysis
+
+
+
+sets,   and    , and for all four subsequences  ,
+ ,  , and  . There was no clear advantage to using any
+of the four subsequences. However,
+the sequence
+ predictably,
+
+associated with the difference set   permitted the highest
+resolution DNA sequence comparison.
+To verify that difference sets in non-homologous sequences
+do not occur at similar locations as in homologous sequences,
+   
+ we computed difference set distributions in two
+point random sequences. As illustrated in Figure 3, the two
+distributions are distinct.
+1
+0.8
+0.6
+0.4
+0.2
+0
+
+4
+
+4.2
+
+4.4
+
+4.6
+
+4.8
+
+5
+4
+
+x 10
+1
+0.8
+0.6
+0.4
+0.2
+0
+
+4
+
+4.2
+
+4.4
+
+4.6
+
+4.8
+
+5
+4
+
+x 10
+
+Fig. 2. Distribution of difference sets  in a segment of the
+Ames Ancestor (top) and Sterne (bottom) pXO1 C subsequences,
+located between 40,000 and 50,000 bp.
+
+0.6
+0.4
+
+1
+
+0.2
+0
+
+0
+
+2000
+
+4000
+
+6000
+
+8000
+
+10000
+
+0.8
+0.6
+
+1
+
+0.4
+
+0.8
+
+0.2
+
+0.6
+
+0
+
+0
+
+1000
+
+2000
+
+3000
+
+4000
+
+5000
+
+6000
+
+7000
+
+8000
+
+9000
+
+10000
+
+0
+
+1000
+
+2000
+
+3000
+
+4000
+
+5000
+
+6000
+
+7000
+
+8000
+
+9000
+
+10000
+
+0.4
+
+1
+
+0.2
+0
+
+0
+
+2000
+
+4000
+
+6000
+
+8000
+
+10000
+
+0.8
+0.6
+
+Distribution of difference sets  in the first 10,000
+bases of the Ames Ancestor (top) and Pasteur (bottom) pXO2 A
+subsequences.
+
+Fig. 1.
+
+In the second experiment we evaluated the abundance of the
+
+difference set   in two sequences of bacillus anthracis
+pXO1 plasmid, associated with the strains Ames Ancestor
+(AE017336) and Sterne (NC 001496). We found that the
+
+Ames Ancestor plasmid contains 3,479   difference sets
+(1,313 in  , 360 in  , 496 in  , and 1,310 in   subse
+quences), while the Sterne plasmid contains 3,528  
+difference sets (1,318 in  , 397 in  , 492 in  , and 1,301
+in  subsequences). While the density of the difference sets
+in pXO2 and pXO1 sequences is similar, in contrast with the
+pXO2 plasmid, the distribution of the difference sets in the
+two pXO1 strains varies at several places. This is illustrated
+in Figure 2, which shows an example of distinct barcodes 4
+associated with subsequences of the pXO1 plasmids. The
+difference in barcodes is a consequence of the occurrence
+4 The concept of barcodes discussed here is distinct from the concept of
+RNA barcoding, used in explorations of species taxonomies [18], which is
+restricted to 648-bp region of the cytochrome c oxidase subunit I gene.
+
+0.4
+0.2
+0
+
+Fig. 3. Distribution of difference sets  in two  -point
+random binary sequences with  1-content.
+
+V. S EQUENCE
+
+HOMOLOGY ASSESSMENT
+
+In this section we describe the algorithm for difference set
+based sequence homology assessment and characterize indels
+in the bacillus anthracis genome.
+A. Sequence homology assessment algorithm
+Abundance and similarity of distributions of difference sets in
+bacillus anthracis plasmids suggests that difference sets are
+appropriate candidates for DNA sequence homology markers.
+Since distributions of difference sets are significantly shorter
+than DNA sequences, similarity of the distributions can be
+assessed faster than similarity of the DNA sequences. The
+speed advantage of this procedure is additionally enhanced,
+when coupled with the Fourier space cross-correlation method.
+ The MITRE Corporation. All rights reserved.
+
+6
+
+The main step in the design of the difference set based DNA
+sequence homology assessment procedure is the construction
+of a compact representation of the difference set distribution.
+This step can be implemented in several ways. In the following
+we describe the simplest (but not necessarily the most efficient)
+of these implementations. Alternative approaches, including
+the approach relying on difference set distribution analysis in
+the wavelet domain, will be explored in further research.
+
+Denote by  and
+the DNA sequences to be assessed,
+by  and  the difference set distributions and by  and
+ the corresponding compactified difference set sequences
+associated with a selected nucleotide. Denote by  and 
+the lengths of the DNA and the compactified difference set
+sequences, respectively, and by  the order of the additive
+group of integers,  , that determine the length of the
+difference
+set. The assessment of homology between  and
+
+can then be accomplished by the following two-stage
+procedure.
+Algorithm
+In the first stage of the algorithm, difference sets distributions
+are used to evaluate rough sequence homology in a barcode
+matching fashion. Individual tasks are as follows:
+ Compute difference set distributions of the DNA se
+quences under consideration,  and ,
+
+ 
+
+
+  
+  
+  
+   
+
+ 
+and
+
+     
+
+   
+ 
+
+  
+     
+ 
+  
+This task requires   real additions per sequence.
+Convert  -point difference set distribution sequences,
+ and  , to shorter,  -point sequences of locations
+of difference sets (i.e., the difference set sequences), 
+and  .
+
+
+
+
+
+
+
+
+
+ 
+
+
+
+
+
+
+
+Compute the phase-only cross-correlation of the difference set sequences,
+
+ 
+     
+  
+                 
+where  and  denote the DFTs
+ of  and  , respectively.
+
+This task requires         complex multiplications.
+Use the dominant values of the cross-correlation sequence
+(as explained in section 3) to identify homologous and
+non-homologous blocks of the original DNA sequences.
+For example, suppose that the dominant value of the
+cross-correlation sequence occurs at  . Then a homologous segment is given by the non-zero values of the
+vector
+
+ 
+                                        
+
+This task requires   real multiplications, where  is the
+number
+of the cross-correlation sequence dominant values
+  when
+(
+sequences are identical).
+
+In the second stage of the algorithm, non-homologous blocks
+whose boundaries coincide with appropriate difference sets
+are individually aligned to reveal fine differences between
+genomes.
+B. Characterization of indels in bacillus anthracis pXO1
+plasmid and chromosomal sequences
+To evaluate efficacy of the difference set homology assessment approach, we first compared the two pXO1 plasmids
+described in previous
+Here, the relevant sequence
+
+   section.
+ 
+lengths  are   
+ and  
+  , respectively,
+
+and
+  . As in previous experiment, the      difference set was chosen for the analysis. Results of individual
+computations of the first stage of the algorithm are shown in
+Figure 4 (step 1), Figure 5 (steps 2 and 3) and Figure 6 (step
+4)5 .
+The first step of the algorithm requires the
+ computation
+of the difference set distributions,   and  . These distributions are shown in Figure 4: the sequence of the Ames
+Ancestor plasmid (upper plot) and the sequence of the Sterne
+plasmid (lower plot). The distributions are obtained by a
+running window analysis of the binary sequence associated
+with the nucleotide  , as described in step 1 of the algorithm.
+Visual inspection of the two plots reveals a high degree of
+sequence similarity. However, except for an obvious mismatch
+in the barcode pattern in the latter part of the sequence
+(approximately, between 120,000 and 160,000 bp), clustering
+of difference set index marks obstructs determination of the
+exact boundaries of the matching segments.
+In the second step of the algorithm the  -point distributions
+of difference sets are converted to shorter,  -point sequences
+ and  of inter-difference set gap lengths. These sequences
+are shown in the two top plots of Figure 5. This step is
+followed by a conversion of the base-ten integer numbers to
+binary numbers and computation of the Fourier space phaseonly cross-correlation between the two binary sequences. The
+latter computation is the most costly part of the algorithm,
+with multiplicative complexity of the order of  (step
+3). The result of this computation is shown in the bottom plot
+of Figure 5.
+The plot reveals three significant (i.e., greater than 0.25)
+peaks at locations 0, 2, and 36. These peaks reveal the presence
+of three matching (   ,   and  ) and two mismatching
+(   and   ) segments in the difference set sequences. These
+segments can be identified by comparing the first difference
+set sequence with appropriately shifted second difference set
+sequence (step 4). Result of this operation is shown in Figure
+6. A rough pictorial representation of segment decomposition
+of the two sequences is given by the graph
+
+                  
+                    
+
+                                 
+                                     
+
+5 As the compressed difference set sequences in Figures 5 and 6 denote gap
+lengths rather than difference set locations, only a rough visual comparison
+between the plots in Figures 4 and 5 can be made.
+
+ The MITRE Corporation. All rights reserved.
+
+7
+
+where the superscript denotes either Ames Ancestor or Sterne
+sequence6. We have that
+
+  
+
+
+and
+
+
+
+ 
+
+   
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+
+In subsequent analysis, for brevity, we will ignore the superscripts, when the identity of the sequence in question will be
+apparent.
+The segment decomposition of the plasmid sequences can
+be further quantified. The first two segments   and  
+are  separated by a relatively short  mismatching sequence
+
+
+  ). This sequence
+difference sets (indices  
+of
+  located between
+corresponds
+to
+the
+mismatching
+segment
+        bp in the Ames Ancestor DNA sequence.
+This segment
+the insertion segment   -139 located
+   contains
+at  
+    bp7. The second and third segments  
+and   are separated by a much longer
+sequence
+  mismatching
+
+of
+difference sets (indices 
+   ). This sequence
+corresponds
+to the mismatching segment   located between
+        
+
+    bp in the Ames Ancestor DNA sequence.
+This
+segment contains the insertion segment   -319 located at
+         
+
+   bp (see Table 1 for details).
+While the first stage of the algorithm permits rough alignment of the plasmid sequences, including the determination of
+matching segments and large insertion segments, the second
+stage permits the determination of fine structure of indels.
+This is accomplished by identification of zeroes in the two
+difference set sequences. The occurrence of zeroes (within
+matching segments) is a consequence of differences in lengths
+of associated sections of DNA sequences, which, in turn, are
+due to the occurrence of indels. There are five such zeroes in
+segment   , five in segment   , and two in segment   (see
+Table 1). For example, the first zero occurs at the beginning of
+segment   (index 3). Mapping the difference set zero index to
+DNA sequence coordinates
+the 607 bp Ames Ancestor
+     reveals
+
+section located
+at
+bp
+and
+the 472 bp Sterne section
+
+
+   
+located at 
+  bp. The difference in section lengths is
+due to the 135 bp long insertion sequence   -3 located at
+ 
+     bp (in Ames Ancestor coordinates).
+Alignment of DNA sections corresponding to all relevant
+difference set pairs reveals three relatively large insertion
+sequences of lengths 135, 85 and 21 bps, and nine single base
+indels. The three large insertion sequences (   -3,   -77 and
+ -336) have been reported previously [45] (referred to therein
+as IX1-2, IX1-1 and VX1-3, respectively); the discovery of the
+nine single base indels   -20,   -90,   -103,   -194,   -203,
+  -205,   -218,   -247, and   -321 is a new result.
+6 Note,
+
+that the length of a segment of difference set distribution is
+determined by the number of difference sets it contains, not by the number
+of bps.
+7 The structure of the large insertion segment
+-139 can be further refined:
+allowing for the occurrence of additional 3 indels and 21 SNPs in the matching
+segments
+and
+places the insertion segment at the increased resolution
+positions of 43348-48589 bp (Ames Ancestor coordinates) and 43297-48539
+bp (Sterne coordinates).
+
+ 
+
+
+
+
+
+
+PM ID
+cds indices
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+cds pair
+coordinates
+
+length
+difference
+
+PM
+type
+
+PM
+position
+
+insertion
+segment
+
+1171-1305
+1170+
+
+small
+indels
+-3
+
+874-1480
+874-1345
+
++135
+
+-20
+
+5540-6024
+5405-5890
+
+-1
+
+-77
+
+29271-29701
+29137-29652
+
+-85
+
+-90
+
+31187-32091
+31138-32041
+
++1
+
+-103
+
+34146-34814
+34366-34763
+
++1
+
+-194
+
+85894-86533
+85843-86483
+
+-1
+
+-203
+
+89614-90013
+89564-89962
+
++1
+
+-205
+
+90674-90972
+90623-90920
+
++1
+
+-218
+
+96976-97762
+96924-97711
+
+-1
+
+-247
+
+116406-116958
+116355-116908
+
+-1
+
+-321
+
+163762-164923
+163718-164880
+
+-1
+
+-336
+
+172059-172746
+172016-172723
+
+-20
+
+
+
+
+
+
+5747+
+5613
+
+insertion
+segment
+
+
+
+
+ 
+
+
+
+
+
+
+29345+
+29212-29296
+
+
+
+31708
+31658+
+
+
+
+34633
+34582+
+
+
+
+86321+
+86271
+
+
+
+89638
+89587+
+
+
+
+90813
+90761+
+
+
+
+97387+
+97336
+
+
+
+116949+
+116899
+
+
+
+164547+
+164504
+
+insertion
+segment
+
+172236++
+172194-172213
+
+large
+indels
+
+
+
+
+-139
+133-139
+
+43275-49509
+43224-49458
+
+0
+
+insertion
+segment
+
+43348-48589
+43298-48539
+
+-319
+249-319
+
+117018-162069
+116968-162025
+
++6
+
+insertion
+segment
+
+117228-162050
+117178-162006
+
+  
+ 
+
+Table 1. List of pXO1 polymorphisms revealed by the difference set analysis.
+PM
+-3 denotes the insertion polymorphism contained in the matching
+segment
+and ending in the Ames Ancestor sequence with the difference set
+139. PM -139 denotes the insertion polymorphism contained in the insertion
+segment
+and ending in the Ames Ancestor sequence with the difference
+set 139. The same naming convention is followed for all polymorphisms.
+For large inter-segment insertions, -139 and -319, the range of relevant
+difference sets is specified in column one. Values given in columns two,
+three and five refer to bp numbers. Top and bottom values in column two
+denote boundaries of difference set sections of Ames Ancestor and Sterne
+sequences, respectively. The number in column three is the difference between
+relevant difference set section lengths of Ames Ancestor and Sterne sequences.
+The sign   in column five indicates a single base gap following the
+specified position. The sign 
+ in column five additionally denotes that
+while the insertion sequence has length 21, one of the bases has a matching
+base in the Ames Ancestor sequence (and hence the difference between
+ denotes
+the sections in column three is only 20). The expression 
+deletion of base  in the first sequence. Insertion -336 contains VNTR
+AAAATAAATATATAATAGTT. Insertion -319 contains VNTR TTA.
+
+
+
+
+
+
+
+
+
+
+
+  
+
+ The MITRE Corporation. All rights reserved.
+
+8
+
+
+
+PM ID
+cds index
+
+ -1247
+ -1823
+ -2069
+ -2212
+ -3251
+ -4431-1
+ -4431-2
+
+cds pair
+coordinates
+
+length
+difference
+
+677836-678586
+677836-678586
+
++1
+
+1012988-1013727
+1012988-1013727
+
+-1
+
+1151217-1151409
+1151217-1151287
+
++122
+
+1237741-1239504
+1237619-1239381
+
++1
+
+1902486-1903185
+1902096-1903061
+
++1
+
+
+
+
+
+
+2610846-2612131
+2610722-2612002
+
++1
+
+
+
+
+
+
++2
+
+ -4431-4
+
++1
+
+ -6001
+ -10598
+
+
+
+
+
+2654926-2655426
+2654797-2655298
+
+-1
+
+3129615-3130279
+3129487-3130152
+
+-1
+
+4650825-4651248
+4650698-4651122
+
+-1
+
+PM
+position
+
+
+
+677964
+677963+
+
+
+
+1013546+
+1013546
+
+insertion
+segment
+
+
+
+
+1902486
+1902362+
+2611984
+2611859+
+
+
+
+2612020
+2611984+
+
+insertion
+segment
+
+
+
+2612043-2612053
+2611917-2611925
+
+
+
+
+
+
+2612077
+2611948+
+2655134+
+2655006
+3130114+
+3129987
+4651190+
+4651064
+
+Table 2. List of polymorphisms in Ames Ancestor and Ames chromosomes
+revealed by the difference set analysis. A reduced naming convention was
+used, where only position of the relevant difference set is identified; the four 4431 indels that occur within the same difference
+set segment are distinguished
+
+by the number in the suffix. The indel -4431-3 consists of 10 bp insertion
+string in the Ames Ancestor chromosome and 8 bp insertion string in the
+Ames chromosome.
+
+To test the efficacy of the difference set approach on
+genome-length sequences, we applied the homology assessment algorithm to the chromosomal sequence of Ames An
+cestor
+(AE017334)  and Ames
+(AE016879), of lengths  
+
+
+
+
+
+
+
+
+
+we
+    and        , respectively. As before,
+
+performed the analysis using the difference set   and the
+     of these difference sets
+nucleotide subsequence  .
+ 
+were identified in the Ames Ancestor sequence and   in
+the Ames sequence. Although the chromosomal sequences are
+almost thirty times longer than the pXO1 plasmids, they are
+more homologous than plasmids and therefore they contain
+only twelve indels (see Table 2 for details). The discovery of
+the twelve indels is a new result8 .
+C. Global homology assessment
+In Subsection B we characterized indels of two closely related
+bacillus anthracis strains. Here, we summarize these findings
+8A
+
+by computing a global homology score. This score is a ratio of
+the number of nucleotides identical in the two sequences and
+the total number of nucleotides in one of the sequences. As
+sequence lengths slightly differ, two scores are generated in
+each case. Denote by   ,  and  the Ames Ancestor, Ames
+and Sterne strains, respectively. Moreover, denote by  and 
+the plasmid pXO1 and the chromosomal sequence. Addition
+of relevant indels from Tables 1 and 2 yields the homology
+scores
+
+single indel at unspecified position was reported in [27].
+
+
+ 
+
+
+
+
+
+
+         
+
+ 
+
+ 
+
+
+         
+ 
+      
+
+
+
+
+      
+       
+
+        
+      
+   
+
+
+1238367
+1238244+
+
+
+
+
+
+
+
+1151242-1151363
+1151241+
+
+
+
+
+
++1
+
+ -4431-3
+
+ -4559
+
+PM
+type
+
+and
+
+
+
+
+
+
+
+
+
+
+
+
+
+   
+   
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+ 
+ 
+ 
+
+ 
+
+
+
+ 
+
+
+
+
+
+
+
+It follows that the plasmid sequences are about
+identical
+  
+and the chromosomal sequences are almost
+identical.
+While in both cases sequences contain multiple indels (14
+and 12, respectively), also in both cases most of the genomic
+difference is concentrated in two large insertion segments
+(   -139 and   -319 in plasmids and -2069 and -4431-3 in
+chromosomes).
+
+
+
+VI. C OMPARISON
+
+
+
+WITH BENCHMARKS
+
+In previous section we described a novel algorithm for efficient identification of matching and mismatching regions of
+highly homologous DNA sequences. Here, we compare performance of this algorithm with the state-of-the-art methods.
+Surprisingly, few techniques have been designed to directly
+address the aforementioned problem. The homology methods
+mentioned earlier ([10], [23], [33]) deal only with the protein
+sequences. DNA sequence alignment methods, on the other
+hand, such as BLAST, MuMmer and PatternHunter, are not
+well suited to this task: they produce large lists of difficult to
+disambiguate overlapping alignments, rather than enumeration
+of unique genomic differences. The only generally available
+method we were able to identify that targets the same application as the difference set approach is the diffseq code of the
+EMBOSS suit of sequence analysis tools [48].
+We compared the performance of diffseq and difference
+sets methods using the pXO1 plasmids (181,654 bp) and
+the chromosomal sequences (5,227,293 bp) of two strains of
+the bacillus anthracis genome. Experiments were performed
+on 2.13 GHz Pentium PC with 1GB of memory, running
+Microsoft Windows XP. Diffseq was run as part of the latest
+version of EMBOSS suit, downloaded from the EMBI website
+on March 15, 2009. The difference set algorithm was run
+in MATLAB 7.0.1 (R14). Diffseq produced identical lists
+of indels as the difference set approach. However, diffseq
+required 5 seconds to process the plasmid sequences and it ran
+out of memory while processing the chromosomal sequences.
+In contrast, the proposed algorithm required 0.09 seconds to
+process the plasmid sequences and 1.83 seconds to process the
+ The MITRE Corporation. All rights reserved.
+
+9
+
+chromosomal sequences. Apart from differences in processing
+speed, these results suggest that the memory space required by
+diffseq, while difficult to estimate due to the hash table method
+used, is significantly larger than that of the difference set
+approach. In current, prototype implementation the difference
+set algorithm requires storing both DNA sequences; this space
+requirement can be easily reduced by a factor of about 500, as
+the core computation is performed on much shorter difference
+set sequences.
+Although, as we remarked before, sequence alignment
+methods target a distinct set of applications, since the difference set based homology assessment is closely coupled with
+the phase-only Fourier space sequence alignment technique
+(referred to in [6] as the symmetric phase-only matched filter,
+or SPOMF), it is appropriate to consider the relative merits
+of the difference set approach, SPOMF and the most popular
+sequence alignment tool, BLAST. A detailed comparison of
+SPOMF and BLAST (the fast MegaBLAST version) was given
+in [6]. Here, we give only a brief summary.
+SPOMF consistently outperforms BLAST
+in alignment run 
+bp, which is far
+time for sequence sizes greater then
+less than the size of any reasonable sequence database (NCBI
+   
+GenBank total sequence size exceeds
+bp). Apart from
+delivering higher computational efficiency, SPOMF overcomes
+BLAST several other deficiencies, including data dependent
+run-time, lack of a multi-scale processing stage, and a high
+degree of parameterization that is not readily transparent to
+the user.
+While the difference set approach relies on SPOMF for
+speeding up the computation of its main stage, it achieves a
+significant run-time reduction over the direct implementation
+of SPOMF by sub-sampling the DNA sequence space. In
+contrast to BLAST, which due to the heuristic nature of its core
+computations does not avail analytical complexity assessment,
+the computational advantage of difference sets over SPOMF
+can be easily quantified.
+The overall multiplicative complexity of the difference set
+algorithm is
+    
+
+
+
+ 
+
+
+
+
+
+   
+
+1
+0.8
+0.6
+0.4
+0.2
+
+The overall multiplicative complexity of the phase-only
+Fourier space cross-correlation method applied directly to
+DNA sequences is
+          
+
+
+
+The multiplicative complexity reduction
+achieved
+in the chro 
+
+
+
+  . The
+mosomal sequence comparison is
+
+
+corresponding multiplicative complexity reduction over an  
+    
+ .
+type method is  
+
+
+
+VII. B EYOND
+
+interest to consider the distributions of both components in
+the DNA sequence.
+Short random and repetitive strings, which we call pure
+strings, account for about half of the bacillus anthracis
+genome. The remaining half is made up of strings that have
+mixed properties and a relatively small number of longer
+random and repetitive strings. A short representative fragment
+of the joint distribution of pure strings is shown in Figure 7. As
+expected, the two types of pure strings do not overlap, although
+they may occur in close proximity. Over large scales (shown in
+the upper plot), pure strings sample the DNA sequence space
+fairly uniformly. Over shorter scales (shown in the lower plot)
+the sampling appears more haphazard: consecutive pure strings
+might be separated by 100 or more nucleotides. This result
+suggests further inquiries.
+First, does the local non-uniformity of string distribution encode significant information? Recent investigations of keyword
+statistics in natural languages and energy levels in nuclear
+physics indicate that this indeed might be the case [11], [41],
+[40], [38]. If this conjecture is confirmed for difference sets,
+the difference set techniques could be used, among others, for
+certain de novo computational biology tasks, such as identification of core genomes and their constituent components. This
+issue is of separate interest and will be addressed elsewhere.
+Second, while subsampled representations of DNA sequences obtained by difference set analysis are appropriate
+for homology studies of closely related genomes, some applications, such as DNA sequence compression, phylogenetic
+tree reconstruction and comparison of more distant sequences,
+may require sequence interrogation at very fine scales. In
+these cases, the construction of a representation of the entire
+DNA sequence, including segments made up of mixed and
+longer strings, is needed. This task requires the use of more
+complex tools, including difference set and almost difference
+set families. The remainder of this section explores some of
+the issues involved in the design of these tools.
+
+0
+
+0
+
+2000
+
+4000
+
+6000
+
+8000
+
+10000
+
+0
+
+200
+
+400
+
+600
+
+800
+
+1000
+
+1
+0.8
+0.6
+0.4
+0.2
+0
+
+Fig. 7. Distribution of difference sets (A+C+G+T, long bar) and tandem
+repeats (short bar) in the Ames Ancestor pXO2 sequence. Upper plot shows
+the first 10,000 bp of the sequence, lower plot shows magnification of the
+first 1000 bp.
+
+DIFFERENCE SETS
+
+The results of the bacillus anthracis genome analysis suggest
+that difference set representations capture essential features of
+DNA sequences. However, while difference sets are appropriate models for random sequences, both random and repetitive
+strings occur in genomes. As random and repetitive strings
+are combinatorial opposites, it is of information-theoretical
+
+A. Difference set families
+Previously, we restricted the analysis to individual DNA
+subsequences, associated with the symbols  ,  ,  , and  .
+However, it is of at least an equal interest to evaluate the
+DNA sequence as a whole. To do so, one needs to consider
+the concept of a difference set family.
+ The MITRE Corporation. All rights reserved.
+
+10
+
+
+
+be an additive group of order  . A collection of sets
+                          
+
+is called an  -fold  -difference set family in  , if the
+Let
+
+multiset union
+
+              
+  
+   exactly  times.
+contains every element
+in   
+
+
+
+  then the difference set
+
+ 
+If   
+for all
+  then
+family is called block disjoint. If        
+the difference set family is called perfect. By the existence
+condition of difference sets,
+
+          
+ 
+   , and hence there is no perfect block
+it follows that 
+disjoint difference set family.  
+
+ 
+   
+example,
+the sets   
+  For
+
+ 
+
+       ,  
+   and  
+   form a difference
+    , but  the family is neither block disjoint
+set family over
+  ) nor perfect (          ).
+(e.g.,    
+
+
+
+
+To obtain a construction that is in some way close to a
+perfect block disjoint difference set family one needs either
+to relax the definition of the difference set or the definition of
+the perfect block disjoint difference set family. The next two
+subsections illustrate the two cases.
+B. Almost difference sets: the case of
+
+   
+
+While the count of individual nucleotide bases in bacterial
+genomes often varies considerably, a convenient simplified
+model for the DNA sequence is one that assumes an equal
+frequency of occurrence of the four DNA symbols. Such
+model requires a decomposition of the DNA sequence into four
+non-overlapping difference sets,   . Unfortunately,
+  as
+we have shown in Subsection A, difference sets with 
+do not exist. Alternatively, one can relax the difference set
+condition and only require that the autocorrelation sidelobe is
+
+not greater than some 
+. A combinatorial design satisfying
+this relaxed condition is called an almost difference set [3],
+[44]. Formally,
+ a  -subset  of an additive group  of order 
+is called a   -almost difference set in  if the multiset
+
+
+
+               
+  
+ elements of      exactly  times, and the  
+contains
+ 
+ elements in 
+exactly 
+times. The necessary
+
+condition for almost difference sets is
+
+                       
+
+                          
+
+is called an  -fold  -almost difference set family in
+ , if the multiset union
+  
+             
+  
+   exactly  times and     
+contains  elements
+in  
+
+ 
+
+elements in  
+exactly  
+times. Block disjoint and
+Furthermore, a collection of sets
+
+perfect almost difference set families are defined
+  analogously
+   
+as for difference sets. Its apparent that when 
+or 
+almost difference
+sets.
+   sets
+   are
+  difference
+  for    , it follows that
+the
+Since  
+
+longest
+set
+that
+satisfies
+the
+conditions
+and
+is
+the
+
+
+
+
+     -set          . Computation of   confirms
+
+
+that   is indeed an almost
+set. An example
+  difference
+
+of a  -fold block disjoint perfect   -almost difference
+set family is
+
+
+
+
+
+                                    
+
+the associated sequence set is
+             
+             
+             
+              
+
+Relating the above result to DNA sequences, it can be
+said that no non-trivial DNA sequence having an equal
+abundance of the four nucleotides is algebraically random.
+While this statement might seem non-constructive, the degree
+of randomness of a DNA sequence can be quantified. For
+example, by allowing  to take values greater  than zero,
+for each  for which an almost difference set   
+exists one can specify a sequence that produces the lowest
+autocorrelation sidelobes possible. Suppose that, at some fixed
+ ,       , where   specifies a periodic sequence,
+and that     is a binary sequence associated with the
+difference set   . Then the DNA sequence can be
+expressed by the sum
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+               
+       
+
+provided the difference set sequences included in the expansion are pair-wise orthogonal.
+
+ 
+
+
+
+   
+C. Almost perfect families: the case of   
+There are several known instances of block disjoint difference
+set families that are almost perfect, in the sense that their union
+is nearly equal to  . In one of these cases the construction
+of
+         ,
+a difference set family relies on the
+set
+
+     is a prime [22].
+where is an odd integer and 
+The difference set is made up of the
+in the
+  fourth  powers
+  
+  , where 
+Galois field GF   , that is 
+is a primitive root modulo  . Each of the sets    ,
+
+and   is a difference set. Since
+these sets are disjoint and
+ 
+their union is equal to 
+, they form a 4-fold almost
+perfect block disjoint difference
+The family has a
+ set  family.
+   
+reasonable granularity (i.e., 
+  , etc.) and hence
+it is suitable for the analysis of DNA sequences
+ in. Inmulti-scale
+spaces.
+The
+smallest
+family
+is
+generated
+by
+this case
+         ,    , and
+
+
+
+
+
+
+
+
+ 
+
+ 
+
+
+
+
+
+
+
+                   
+                  
+ 
+                    
+ 
+                     
+ 
+
+ The MITRE Corporation. All rights reserved.
+
+
+
+11
+
+A similar construction
+one outlined above can be
+   to the
+ a prime and an odd integer.
+obtained by taking 
+
+
+
+
+
+VIII. C ONCLUSIONS
+A new approach for the analysis of DNA sequences, based
+on combinatorial-analytic concepts, was proposed. In this
+approach the DNA sequence is represented by its subsampled
+version derived from the distribution of difference sets. This
+representation is convenient, as (1) difference sets capture the
+random character of the DNA sequence and hence sequence
+homology markers can be directly linked with sequence regions of high combinatorial complexity and, possibly, with
+regions that have longer evolutionary history, and (2) the
+analysis of DNA sequences can be replaced by the analysis
+of much shorter difference set sequences thereby reducing
+the cost of computation. Direct applications of the difference
+set approach are rapid sequence homology assessment and
+one-against-all database match search. To test efficacy of the
+difference set approach in these applications experiments on
+closely related strains of the bacillus anthracis genome were
+performed. Results of these experiments include:
+
+
+
+
+
+
+
+
+
+Characterization of abundance of the   difference
+set in the bacillus anthracis genome.
+Demonstration that the computational efficiency of the
+proposed approach exceeds the efficiency of the state-ofthe-art methods, diffseq and BLAST,
+Discovery of collections of novel indels in bacillus anthracis plasmid and chromosomal sequences, and
+
+The first result shows that, apart from comparative in silico
+studies, difference sets can be used as increased resolution
+strain markers for an experimental assay based bacterial sequence ID. Current genotyping approaches in this category are
+limited, for the most part, to parsimonious assays that rely on
+a relatively small number of non-uniformly distributed VNTRs
+or SNPs [35]. These assays can identify individual strains
+from a limited collection of fully sequenced, closely related
+genomes. However, they are not effective when only partial
+sequence data is available, the data contains sequencing errors,
+or the collection includes unknown strains. In these cases it is
+required that the bacterial genome space is sampled at multiple
+loci and with a greater degree of uniformity. As difference sets
+occur in bacterial genomes more frequently than either VNTRs
+or SNPs, a difference set based strain fingerprinting scheme
+can address these issues more effectively.
+Sequence homology assessment can be viewed as an application of sequence complexity studies. These studies often link
+the concept of complexity with the concept of randomness.
+Addressing this broader application domain, the investigation
+described in this paper has shown that no significant part of the
+DNA sequence can be considered algebraically random. Future
+research utilizing more advanced difference set constructions,
+such as almost difference set families, may permit further
+quantification of this result in terms of degrees of randomness. If successful, this investigation may lead towards the
+design of new approaches for DNA sequence compression and
+phylogenetic tree reconstruction. A preliminary mathematical
+
+formalism for decomposing DNA sequence into almost difference sets, which will assist investigation of such approaches,
+has been outlined in Section VII.
+Several areas require further research. First, we have demonstrated efficacy of the difference set approach on homologous
+sequences. This analysis can be broaden to more distantly
+related and non-homologous sequences. Second, the formalism
+described in Section VII focused on individual difference
+sets and on canonical difference set families comprised of
+difference sets of equal lengths. This formalism can be extended to collections of almost difference set families with
+mixed parameters that include difference sets spanning a range
+of values of  and  , and permit quantification of various
+dependencies
+difference sets, such as the subsumption
+  among
+
+
+of   by   . Third, while the proposed homology
+assessment algorithm is highly efficient, an exploration of
+multi-grain sequence processing approaches, including the
+analysis in multi-scale spaces, might bring about additional
+performance gains. Such analysis will produce progressively
+higher resolution alignments of subsampled sequences by
+performing Fourier analysis on wavelet representations. This
+approach might prove particularly valuable when applied to
+less homologous sequences and to future petascale databases.
+ACKNOWLEDGEMENTS
+The author is grateful to Joe Francoeur for software support,
+to Joe Rushanan for a discussion of difference sets, and to
+Marvin Drake for critical reading of the manuscript.
+R EFERENCES
+[1] Altschul, S.F. et al., Basic local alignment search tool, J. Mol. Biol.,
+vol. 215, pp. 403-410, 1990.
+[2] Anastassiou, D., Genomic signal processing, IEEE Trans. SP, vol. 18,
+pp. 8-20, 2001.
+[3] Arasu, K. T. et al., Almost difference sets and their sequences with
+optimal autocorrelation, IEEE Trans. on IT, vol. 47, no. 7, pp. 29342943, 2001.
+[4] Bauer, M. et al., The average mutual information profile as a genomic
+signature, BMC Bioinformatics, vol. 9, pp. 1-11, 2008.
+[5] Baumert, L.D., Cyclic difference sets, Springer, 1971.
+[6] Brodzik, A.K., Phase-only filtering for the masses (of DNA data): a new
+approach to DNA sequence alignment, IEEE Transactions on Signal
+Processing, Special Issue on Genomic Signal Processing, vol. 54, no. 6,
+pp. 2456-2466, 2006.
+[7] Brodzik, A.K., Quaternionic periodicity transform: an algebraic solution
+to the tandem repeat detection problem, Bioinformatics, vol. 23, no. 6,
+pp. 694-700, 2007.
+[8] Brodzik, A.K., Combinatorial-analytic genometrics: a non-parametric
+approach for assessing information content of the DNA sequence, in
+preparation.
+[9] Brown, D.G., A survey of seeding for sequence alignment, in I.
+Mandoliu and A. Zelikovsky, Bioinformatics algorithms: techniques and
+applications, pp. 117-141, 2008.
+[10] Chang, P. et al, Structure alignment based on coding of local geometric
+measures, BMC Bioinformatics, vol. 7, pp. 1-10, 2006.
+[11] Carpena, P. et al, Level statistics in words: finding words in literary texts
+and symbolic sequences, Physical Review, vol. 7, pp. 1-4, 2009.
+[12] Colbourn, C.J. and Dinitz, J.H., Handbook of combinatorial designs,
+Chapman and Hall/CRC, 2006.
+[13] Compagner, A., Definitions of randomness, Am J. Phys., vol. 59, no. 8,
+pp. 700-705, 1991.
+[14] Cummings, C.A. and D.A. Relman (2002) Microbial Forensics - CrossExamining Pathogens, Science, vol. 296, pp. 1976-1979, 1991.
+[15] Dai, Q. and T. Wang, Comparison study on k-word statistical measures
+for protein: from sequence to sequence space, BMC Bioinformatics, vol.
+9, no. 6, pp. 1-19, 2008.
+
+ The MITRE Corporation. All rights reserved.
+
+12
+
+[16] Danchin, A., Delphic boat: what genomes tell us, Harvard University
+Press, 2003.
+[17] DasGupta, A., Sequences, patterns and coincidences, preprint.
+[18] Dasmahapatra, K.K. and J. Mallet, DNA barcodes: recent successes and
+future prospects, Heredity, vol. 97, no. 6, pp. 254-255, 2006.
+[19] Delcher, A.L. et al., Alignment of whole genomes, Nucleic Acids
+Research, vol. 27, no. 11, pp. 2369-2376, 1999.
+[20] Erdos, P. and P. Turan, On a problem of Sidon in additive number theory,
+J. London Math. Soc., vol. 3, no. 270, pp. 212-215, 1941.
+[21] Ferragina, P. et al., Compression-based classification of biological sequences and structures via the Universal Similarity Metric: experimental
+assessment, BMC Bioinformatics, vol. 8, pp. 1-20, 2007.
+[22] Hall, M., A survey of difference sets, Proc. Am. Math. Soc., vol. 7, pp.
+975-986, 1956.
+[23] Hochreiter, S. et al., Fast model based protein homology detection
+without alignment, Bioinformatics, vol. 23, no. 14, pp. 1728-1736, 2007.
+[24] Horner, J.L. and P.D. Gianino, Phase-only matched filtering, Applied
+Optics, vol. 23, no. 6, pp. 812-816, 1984.
+[25] Katoh, K., K. Misawa, K. Kuma and T. Miyata, MAFFT: a novel method
+for rapid multiple sequence alignment based on fast Fourier transform,
+Nucleic Acids Research, vol. 30, no. 14, pp. 3059-3066, 2002.
+[26] Konstantinidis, K.T. et al, The bacterial species definition in the genomic
+era, Philosophical Transactions of The Royal Society B, vol. 361, pp.
+1929-40, 2006.
+[27] Keim, P. et al, Anthrax molecular epidemiology and forensics: using the
+appropriate marker for different evolutionary scales, Infection, genetics
+and evolution, vol. 4, pp. 205-213, 2004.
+[28] Korf, I., M. Yandell and J. Bedell, BLAST, OReilly, Sebastopol, 2003.
+[29] Kurtz, S. and C. Schleiermacher, REPuter - fast computation of maximal
+repeats in complete genomes, Bioinformatics, vol. 15, pp. 426-427, 1999.
+[30] Van Lambalgen, R., The axiomatization of randomness, The Journal of
+Symbolic Logic, vol. 55, no. 3, pp. 1143-1167, 1990.
+[31] Lander, E.S., Symmetric designs: an algebraic approach, Cambridge
+University Press, 1983.
+[32] Li, M. and P. Vitanyi, An introduction to Kolmogorov complexity and
+its applications, Springer, 1997.
+[33] Lingner, T. and P. Meinicke, Remote homology detection based on
+oligomer distances, Bioinformatics, vol. 22, no. 18, pp. 2224-2231, 2006.
+[34] Lipman, D.J. and W. R. Pearson, Rapid and sensitive protein similarity
+search, Science, vol. 227, pp. 1435-1441, 1985.
+[35] Lista, F. et al, Genotyping of bacillus anthracis strains based on automated capillary 25-loci multiple locus variable number tandem repeats
+analysis, BMC Microbiology, vol. 6, pp. 1-15, 2006.
+[36] Marston, C.K. et al, Molecular approaches to identify and differentiate
+bacillus anthracis from phenotypically similar bacillus species isolates,
+BMC Microbiology, vol. 6, pp. 22-28, 2006.
+[37] Ma, B. et al, PatternHunter: faster and more sensitive homology search
+, Bioinformatics, vol. 18, no. 3, pp. 440-445, 2002.
+[38] Mehta, M.L., Random matrices, Elsevier, 2004.
+[39] Needleman, S.B. and C.D. Wunsch, A general method applicable to the
+search for similarities in the amino acid sequence of two proteins, J.
+Mol. Biol., vol. 48, pp. 443-453, 1970.
+[40] Ng, K. L. and Li S. P., Statistical linguistic study of DNA sequences,
+preprint.
+[41] Ortuno, M. et al, Keyword detection in natural languages and DNA,
+Europhys. Lett., vol. 57, no. 5, pp. 759-764, 2002.
+[42] Pallen, M.J. et al, Bacterial pathogenomics, ASM Press, 2007.
+[43] Pott, A. et al (Eds), Difference sets, sequences and their correlation
+properties, Springer, 1999.
+[44] Pott, A. and Bradley, S. P., Existence and nonexistence of almost-perfect
+autocorrelation sequences, IEEE Trans. on IT, vol. 41, no. 1, pp. 301304, 1995.
+[45] Read, T.D. et al, Comparative Genome Sequencing for Discovery of
+Novel Polymorphisms in Bacillus anthracis, Science, vol. 296, pp. 20282033, 2002.
+[46] Redon, R. et al, Global variation in copy number in the human genome,
+Nature, vol. 444, pp. 444-454, 2006.
+[47] Rausch, T. et al, Segment based multiple sequence alignment, Bioinformatics, vol. 24, pp. 187-192, 2008.
+[48] Rice,P., Longden,I. and Bleasby,A., EMBOSS: the European Molecular
+Biology Open Software Suite. Trends Genet., vol. 16, pp. 276-277, 2000.
+[49] Rockwood, A.L. et al, Sequence alignment by cross-correlation, Journal
+of Biomolecular techniques, vol. 16, no. 4, pp. 453-458, 2005.
+[50] Sidon, S., Ein Satz u ber trigonometrische polynome und seine anwendung in der theorie der Fourier-Reihen, Math. Ann., vol. 106, pp. 536539, 1932.
+
+[51] Smith, T.F. and M. S. Waterman, Identification of common molecular
+subsequences, J. Mol. Biol., vol. 147, pp. 195-197, 1981.
+[52] Stinson, D.R., Combinatorial designs: construction and analysis,
+Springer, 2003.
+[53] Vinga, S., Alignment-free sequence comparison - a review, Bioinformatics, vol. 19, no. 4, pp. 513-523, 2003.
+[54] Volchan, S.B., What is a random sequence?, Am. Math. Monthly, vol.
+109, pp. 46-63, 2002.
+[55] Zhang, L., Superiority of spaced seeds for homology search, IEEE Trans.
+on Comp. Biol. and Bioinformatics, vol. 4, no. 3, pp. 496-505, 2007.
+
+Andrzej K. Brodzik received MS degree from Gdansk Polytechnic
+and PhD degree from City University of New York, both in electrical
+engineering. He has held positions with IBM, Tufts University, Air
+Force Research Laboratory, and MITRE. He published on a wide
+range of topics, including mathematical biology, radar and communications sequence design, data fusion, hyperspectral image processing,
+and time-frequency analysis. His main interest is in the design of
+discrete sequences with special mathematical properties for molecular biology and radar/communications systems applications. Among
+others, these properties facilitate specification of sparsity conditions
+for signal representations in high-dimensional spaces, identification of
+faithful mappings of symbolic alphabets to algebraic number systems,
+and construction of effective signal subsampling schemes. The goal
+in all of these cases is to capture, in a succinct manner, the gestalt
+of the underlying biological or physical phenomenon. Dr. Brodzik
+is currently leading MITRE effort on pathogenic sequence forensics,
+Mathematics for Pathogenomics. Previously, his research has been
+supported, among others, by DARPA, AFRL, AFOSR and NSF.
+Dr. Brodzik is a co-author of the Birkauser book, Ideal Sequence
+Design in Time-Frequency Space, Applications to Radar, Sonar and
+Communication Systems.
+
+ The MITRE Corporation. All rights reserved.
+
+13
+
+Fig. 4.
+
+Distribution of difference sets  in the Ames Ancestor (top) and Sterne (bottom) pXO1 C subsequences.
+
+6000
+4000
+2000
+0
+
+0
+
+50
+
+100
+
+150
+
+200
+
+250
+
+300
+
+350
+
+400
+
+0
+
+50
+
+100
+
+150
+
+200
+
+250
+
+300
+
+350
+
+400
+
+0
+
+50
+
+100
+
+150
+
+200
+
+250
+
+300
+
+350
+
+400
+
+6000
+4000
+2000
+0
+1
+0.5
+0
+
+Fig. 5. Difference set sequences associated with the pXO1 plasmid: Ames Ancestor (top), Sterne (middle), cross-correlation sequence
+(bottom).
+
+6000
+4000
+2000
+0
+
+0
+
+50
+
+100
+
+150
+
+200
+
+250
+
+300
+
+350
+
+400
+
+0
+
+50
+
+100
+
+150
+
+200
+
+250
+
+300
+
+350
+
+400
+
+0
+
+50
+
+100
+
+150
+
+200
+
+250
+
+300
+
+350
+
+400
+
+6000
+4000
+2000
+0
+6000
+4000
+2000
+0
+
+Fig. 6. Three matching segments of the pXO1 sequences obtained by matching the entire sequences at shifts given by the three largest
+values of the cross-correlation sequence in Figure 5.
+
+ The MITRE Corporation. All rights reserved.
+
+

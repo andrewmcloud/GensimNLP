@@ -1,0 +1,106 @@
+Approved for Public Release; Distribution Unlimited
+Case # 09-2611
+
+Spotlight
+
+Rob Strain
+Putting Signal Processing to Work in the National Airspace
+
+Rob Strain was a student at George Mason University in Fairfax, Va., studying computer and
+electrical engineering when he first heard about MITRE in 1989. As a leader of the Young
+Armed Forces Communications and Electronics Association (AFCEA), he arranged for student
+AFCEA members to meet with MITREs signal processing group to visit its labs and learn about
+its work. It was inspirational, he says. I was impressed by the technology research, people,
+and the work MITRE was doing for the public good.
+
+After graduation, Strain worked briefly for a small communications company before joining
+MITRE in 1990. He started in MITREs Command, Control, Communications, and Intelligence
+federally funded research and development center (FFRDC), which is sponsored by the
+Department of Defense.
+
+I wanted to fly on large military aircraft, such as B-52s, testing very-low frequency
+communications equipment, he says. There was a slow-down in the work and an opportunity
+came along to continue my love of working with airplanes. That was with the Center for
+Advanced Aviation System Development [CAASD], the FFRDC that MITRE operates for the
+Federal Aviation Administration.
+
+From the time he joined CAASD, Strain held a variety of jobs in the communications,
+navigation, and surveillance areas of air traffic control. He was the principal investigator for
+research that led to the development of MITREs Universal Access Transceiver (UAT) from
+1996 to 1998. The UAT is a digital radio system that significantly increases situational
+awareness for aircraft by providing real-time information about other air traffic and weather to
+the cockpit. The systems have been installed in aircraft and on the ground in Western and
+Southeastern Alaska through the FAA's Capstone Project. Capstone, a safety demonstration
+
+Page 1
+ The MITRE Corporation. All rights reserved.
+
+project designed to reduce in-flight accidents and incidents, cut the airplane accident rate in
+Alaska by 42 percent.
+
+Thanks to the success of the Alaska tests, the FAA installed additional demonstration projects
+along the East Coast starting in 2003 and has included UAT in the national implementation of
+Automatic Dependent SurveillanceBroadcast (ADS-B) and other broadcast services. ADS-B is
+the backbone of the FAAs Next Generation Air Transportation System. It uses GPS technology
+to determine a plane's location, including altitude, and whether it is climbing, descending, or
+turning, and broadcasting it once a second. Strain explains. This information is available to air
+traffic controllers and other suitably equipped aircraft in proximity. The UAT research set the
+course for my career, and its satisfying to see it find its way into the National Airspace System
+(NAS).
+
+The aviation community apparently agrees, because the UAT Technology Design Team received
+the FAAs 2008 Excellence in Aviation Research Award for contributing to improving the safety
+and efficiency of the NAS. At MITRE, we strive to have our ideas implemented, Strain says.
+Ive been extremely fortunate to work with folks who have hit that mark.
+
+He also has been supporting work on the development of the UAT Beacon Radio, an evolution
+of the original system. The new device has potential benefits for emergency management
+operations, search and rescue missions, and smaller planes unable to accommodate a heavier,
+full-size UAT system. The first UAT prototype was built in 1996, weighed 35 pounds, and was
+the size of a small suitcase. Today the UAT Beacon Radio is a hand-held device the size of two
+decks of cards. The radio engineers in our Bedford office get all the credit for shrinking the
+radio down to a compact size, says Strain. They do amazing things with microelectronics.
+
+Improving Situational Awareness
+Strain is now an associate program manager in CAASD leading systems engineering work
+associated with the FAAs ADS-B program. While working on the UAT in the mid-1990s, he
+was involved in the definition of the ADS-B system. He has also been a contributor to the
+development and testing of two related broadcast services that deliver weather and traffic
+
+Page 2
+ The MITRE Corporation. All rights reserved.
+
+information to pilots from FAA radars, known respectively as Flight Information Service
+Broadcast and Traffic Information ServiceBroadcast. Both of these services are also available
+to pilots on the UAT data link.
+
+Among other projects, the biggest part of Strains job these days is working on the FAAs
+implementation of ADS-B. Thats been pretty successful as well, he notes. In 2007, the FAA
+awarded a contract to ITT Corporation, and were helping the company with its implementation,
+supporting test and evaluation and future applications. Theres still quite a bit of on-going
+research that well be doing about how the technology can be used.
+
+Its challenging work like this that appeals to him, and he believes MITRE is the place to do it.
+People at MITRE like to do a good solid engineering work. The environment and the caliber of
+people make the work most enjoyable.
++ + +
+
+Sidebar
+Technology Transfer and UAT
+As with many MITRE prototypes, the Universal Access Transceiver (UAT) Beacon Radio is
+available for commercial use through a nonexclusive license. MITREs Technology Transfer
+Office, or TTO, enables the government and the general public to benefit from MITREs
+research advances in aviation, biotechnology, nanotechnology, collaboration and visualization
+tools, information security, wireless communications, and many other areas. Its part of our
+public service mission to transition our inventions to sponsors or to other organizations through
+licensing agreements, open source release, or publications.
+
+For licensing information, contact Ray Dizon at MITRE's Technology Transfer Office at (703)
+983-6053.
+=================
+Suggested photo: Rob holding a UAT Beacon Radio.
+
+Page 3
+ The MITRE Corporation. All rights reserved.
+
+

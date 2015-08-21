@@ -1,0 +1,287 @@
+Approved for Public Release; Distribution Unlimited
+Case # 09-2658
+ The MITRE Corporation. All rights reserved.
+
+Checkpoint Screening and Effectiveness Measures*
+Samar K. Guharay
+The MITRE Corporation
+7515 Colshire Dr., McLean, VA 22102, USA
+
+Abstract
+The challenge against continued changes in threat scenarios and threat characteristics warrant a
+forward-looking solution defeating the enemies intent. The threat space can encompass a broad
+range covering chemical, biological, radiological, nuclear and explosive threats, commonly called
+CBRNE threats. A layered-defense architecture including remotely operated screening technologies
+through unmanned autonomous systems, stand-off technologies, threat deterrent objects and
+checkpoint screening supports the basic structure of the technology solution toolbox. This article
+focuses at developing the principles of designing an effective checkpoint screening system.
+
+1. Introduction
+Due to the increasing interrelationships in the worlds socio-economic system there exists an
+underlying common international thread. In order to establish a safe world a global security
+solution against the threat of terrorism is needed. An apparently disjointed event in a remote
+place can trigger a major catastrophic problem across the globe. The global interconnectivity
+warrants developing an appropriate policy and technology solution to ensure this safety that is
+able to readily respond as soon as any clue/signature for an undesirable event erupts in any part
+of the world. The threat space covers a broad range of hazards including chemical, biological,
+radiological, nuclear and explosive threats, commonly called CBRNE threats.
+An effective countermeasure solution requires many disparate components, namely,
+technology, standards, operational strategy, interoperability considerations, adaptive capabilities
+
+1
+
+ The MITRE Corporation. All rights reserved.
+
+for diverse threat scenarios, and above all, policy issues including privacy, information sharing,
+interagency and intergovernmental coordination, health and flow of commerce. Robustness,
+rapid deployment and cost constitute the major factors for an effective deployment and a good
+return of investment. A layered-defense architecture including surveillance technologies,
+remotely operated screening technologies through unmanned autonomous systems, stand-off
+technologies, various threat deterrent objects and finally, a check-point screening supports the
+basic structure of the technology solution toolbox. An effective solution requires consideration of
+the following key process steps:
+(i)
+
+Develop a systems level approach that is agile, quickly adaptable to evolving threat
+scenarios, and strategize technology development based on end-users requirements;
+
+(ii)
+
+Implement a spiral technology development: Technology assessment toolbox will
+guide determination of the measures of effectiveness and associated risks;
+
+(iii)
+
+Build a well-knit communication protocol threading the policy makers, end users and
+technology developers.
+
+Along with addressing the overall CBRNE threat problem and potential technology solution
+this article focuses on the key process steps for developing a check-point screening system.
+While the basic framework can be applied to a broad class of CBRNE threats, the process steps
+discussed here will emphasize challenging people-borne and/or vehicle-borne threats, especially
+Improvised Explosive Devices (IEDs).
+
+2. Key Process Steps for Technology Solution against Threats
+The technology solution for CBRNE threats requires an a priori knowledge of the threat
+characteristics. The goal is to develop the corresponding technology solution for detection and
+
+2
+
+ The MITRE Corporation. All rights reserved.
+
+identification of the threat signatures. An effective process will identify technology modalities
+that can combat multiple threat scenarios from the fundamental science standpoint. If the
+solution requires completely independent technology components for combating different pieces
+of the CBRNE threats, then the full integrated solution requires a large technology resource and
+thereby, an enormous investment. Identifying some common threads in the possible technology
+solutions across the threat space will reduce the overall resource load. Figure 1 schematically
+illustrates this basic concept. Note that the integrated technology solution for CBRNE gets
+reduced to a tighter space (smaller circle encompassing all components of CBRNE) with
+increasing common threads of the technology requirements for the individual threat components.
+A thorough understanding of the overall threat characteristics and their corresponding
+technology solution is required to build an effective overall solution.
+
+Figure 1. Notice a large circle on the left hand side encompassing a CBRNE technology solution when each
+group of technology solutions only combats a specific group of threats, i.e., there is no intersection among
+technologies for C, B, R, N, and E threats. The overall requirement is significantly reduced if some common
+technology solutions are recognized  see intersections among threat circles and an overall reduction of the
+outer circle. An ideal solution will minimize the area of the outer circle encompassing all threat solution
+components.
+
+An important consideration for the integrated technology solution is the performance
+versus cost trade-off analysis. While developing new technology components or bringing in
+3
+
+ The MITRE Corporation. All rights reserved.
+
+matured COTS technology for a field solution, it is important to determine the overall
+enhancement of the performance metrics. This is often judged by measures of effectiveness
+(MOE). Attaining system MOEs of practical utility is constrained by the available resources,
+especially funds. Figure 2 gives a conceptual illustration identifying the point up to which the
+investment has the most significant impact. This figure is drawn in relative scale. Clearly, the
+most effective performance against investment is obtained around the knee of the curve. This
+method is applicable to selecting, designing and developing the subcomponents of the overall
+technology solution as well.
+
+Performance
+
+$
+Figure 2. A conceptual performance versus investment trade-off -- both axes are shown in relative scale.
+
+A. Layered-defense Technology Architecture Leading to Check-Point Screening
+With the aforementioned strategic approach the next step is to design the architecture for
+implementing technology. In this regard, it must be recognized that no single technology will
+provide a full-proof solution; a layered defense architecture is expected to provide an effective
+solution.
+A conceptual system highlighting the principal technology components of a layered
+defense architecture is shown in Fig.3. Notice the coupling among many disparate elements of
+the system, namely, surveillance, remote/stand-off screening, check-point screening, algorithms,
+4
+
+ The MITRE Corporation. All rights reserved.
+
+CONOPs, and decision making. The critical step is to recognize the threat as rapidly and as early
+as possible and as far removed from the potential terrorists/enemies targets as possible.
+
+Figure 3. A layered-defense technology architecture including a surveillance system, remotely operated/standoff screening system and a check-point screening system. Several illustrative technology candidates are
+highlighted. Many of these technology components are suitable for multiple threat domains. CCTV: Closedcircuit TV; NIR: Near infra-red; IR: Infra-red; mmW: millimeter wave; LIBS: Laser-induced breakdown
+spectroscopy; XRBS: X-ray backscattering; IMS: Ion Mobility Spectrometry; DMS: Differential Mobility
+Spectrometry; MS: Mass spectrometry; AFP: Amplifying Fluorescent Polymers; XRT: X-ray transmission;
+XRD: X-ray diffraction; XRCT: X-ray computed tomography; PFNA: Pulsed fast neutron analysis.
+
+This basic technology framework in Fig. 3 can be applied to multiple threats in the CBRNE
+domain, for example, toxic industrial chemicals (TICs), chemical warfare agents (CWAs),
+biological warfare agents (BWA), radiological and nuclear devices, and above all, people-borne,
+vehicle-borne and leave-behind IEDs.
+Several literatures describe the technologies for different threat domains [1-3]. The
+primary issue is to align multiple technology components in an ordered manner so that the
+5
+
+ The MITRE Corporation. All rights reserved.
+
+threats are rapidly (~ real time) detected with very low false alarm rates. Ideally, 100% detection
+and 0% false alarm rates are desirable. An effective approach is to identify and implement
+orthogonal sensing modalities. The data analysis and decision making protocol requires a data
+fusion scheme which acts as the central brainpower of the overall architecture. Several literatures
+[4,5] address this problem and develop the basic guidelines to implement this approach. The data
+analysis follows a variety of schemes, such as Bayesian inference, Dempster-Shafer algorithm,
+neural networks, voting schemes, fuzzy logic, and support vector machines. The formulation of
+the Bayes algorithm updates the decision making score through a probabilistic calculation in the
+following manner.
+
+Here, P(A|B) is the condition probability of the event A, given the occurrence of the event B.
+Likewise, P(B|A) can be defined as well. The conditional probability is also called the posterior
+probability due to its dependence on the specified value of B. P(A) and P(B) are, respectively,
+the a priori probabilities of A and B. A denotes the complementary event of A. The Bayesian
+scheme can be applicable to many circumstances, and it probabilistically extrapolates and makes
+inference from the data in the context of prior statistical knowledge.
+
+B. Checkpoint Screening
+As shown in Fig. 3 the information from the outside screening layers, namely, surveillance and
+remotely-operated/stand-off screening feeds the check-point screening technology that acts as the
+secondary confirmatory screening system. The technology components in the check-point
+screening have a short range, from approximately a few centimeters to meters. These technology
+6
+
+ The MITRE Corporation. All rights reserved.
+
+components are usually very sensitive to the extent that even a very trace amount of materials
+(parts per billion to parts per trillion) can be detected. They also have good selectivity and can
+identify threat signatures with material composition characteristics. Its extremely important that
+these technology components operate almost in real time. Figure 3 highlights some examples of
+technologies relevant to check-point screening. An illustration combining orthogonal
+technologies and achieving high probability of detection with low false alarm rates is included in
+Figure 4. Here, the characteristic spectra from an IMS are combined with the corresponding
+Raman spectra  three explosive materials, namely, TNT, RDX and HMX, and two nonexplosive materials, namely, di-nitro-o-cresol (DNOC) and musk ambrette are considered here.
+Although the IMS spectra for TNT, RDX and DNOC, and HMX and musk ambrette yield close
+mobility values, the two-dimensional spectral plot can distinctly resolve the materials. The
+argument can be similarly built against the Raman spectra alone. The Raman signatures along
+with IMS provide a unique capability for identification of the materials. The illustration in Fig. 4
+supports combining orthogonal sensor modalities for enhanced system performance.
+DETECTION PROFILES
+1
+0.9
+
+PROB DETECTION
+
+0.8
+0.7
+0.6
+0.5
+0.4
+0.3
+0.2
+
+Detector 1
+Detector 2
+Fused Detector 1
+
+0.1
+0
+PROB FALSE ALARM
+
+Figure 4. The left figure shows a two dimensional plot with the mobility values from IMS along the vertical
+axis and the Raman spectral shift along the horizontal axis. The right figure shows a conceptual enhancement
+of the characteristic receiver operating characteristics (ROC) when two sensors (detector 1 and detector 2)
+are combined to yield the overall response with high probability of detection and low false alarm rates.
+
+7
+
+ The MITRE Corporation. All rights reserved.
+
+In order to design and develop an efficient check-point screening system it is important to
+integrate multiple technologies. Although there has been a significant progress in screening
+technologies with good measures of performance (MOP) of the individual technology
+component in a controlled environment, such as in the laboratory, the requirements for a credible
+technology solution becomes formidable in an open environment. Clutter from the background,
+wide variation in environmental conditions, and targets in a crowded environment constitute
+some of the challenges to design a reliable technology solution. An orthogonal hybrid sensor
+modality, as illustrated in Figure 4, is a means to overcome the performance limitations due to
+clutters. Having developed robust individual technology components the next task is to design
+and build an integrated system, for example, an integrated check-point system comprising
+multiple technology elements and associated CONOPs. The information from this integrated
+system strengthens the decision making process and achieve the mission goals. The MoPs of
+different technology components are appropriately weighted, combined and finally linked to the
+measures of effectiveness (MoE) that are set by the mission objectives. Figure 5 below gives a
+schematic diagram highlighting the notion of funneling the information from different disparate
+technology components at the checkpoint that challenge different threat pieces, namely, people
+and baggage-borne devices. In order to achieve an effective countermeasure solution the
+checkpoint needs to be optimally utilized for secondary screening and confirmation. The
+checkpoint needs to be linked to the previous components, namely, surveillance and stand-off
+screening system as shown in Fig. 2. In fact, the a priori input to the checkpoint is obtained from
+those components ahead of the checkpoint, and the information is updated following the
+aforementioned Bayes analysis. The ultimate goal is to skim out the technology output and use
+
+8
+
+ The MITRE Corporation. All rights reserved.
+
+them to a decision making parameter that effectively triggers the countermeasures. The
+mathematical construct for this comes from optimizing the MoPs and MoEs.
+
+People
+screening by
+Imaging 
+mmW, THz,
+
+People
+Screening by
+IMS, MS, K-9
+
+Baggage
+screening by
+XRT, XRD,
+XRCT, K-9
+
+Data analysis and decision making
+Figure 5. Information accumulation from different technology components and appropriate threat analysis
+that enables countermeasure decision making.
+
+3. Summary
+This article discusses the key process steps to build an effective technology architecture to
+combat multiple threats in the CBRNE domain. The integration process rests on a layereddefense architecture. The considerations of CONOPs along with appropriate data analysis
+algorithm are highlighted. The key points for designing and developing a checkpoint screening
+system are discussed.
+
+Acknowledgment
+The author acknowledges valuable discussions with his colleagues at MITRE. Special thanks are
+due to Dave Colella, Mike Tierney, Garry Jacyna, Marcus Glenn, and Joyce Foreman.
+
+9
+
+ The MITRE Corporation. All rights reserved.
+
+References
+[1] Existing and Potential Standoff Explosives Detection Techniques, The National Academic Press,
+2004.
+[2] Survey of Commercially Available Explosives Detection Technologies and Equipment, David W.
+Hannum. John E. Parmeter, Sandia National Laboratory, September 1998.
+[3] Defending the U.S. Air Transportation System against Chemical and Biological Threats, The
+National Academic Press, 2006.
+[4] Mathematical Techniques in Multisensor Data Fusion, David L. Hall and Sonya A.H. McMullen,
+2nd Ed., Artech House, Boston, 2004.
+[5] Multi-Sensor Data Fusion, H.B. Mitchell, Springer, New York, 2007.
+
+10
+
+

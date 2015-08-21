@@ -1,0 +1,534 @@
+Approved for Public Release; Distribution Unlimited
+Case # 09-2870
+
+Analysis of Data Communication
+Impact on En Route
+Operational Errors (OEs)
+Niamh Lowry
+14 July 2009
+
+ 2009 The MITRE Corporation. All rights reserved.
+
+Purpose
+ Analyze and quantify the impact the Data
+Communications Program on En Route OEs
+
+2
+
+ 2009 The MITRE Corporation. All rights reserved.
+
+Background
+ MITRE Center for Advanced Aviation System
+Development (CAASD) has conducted OE
+analysis since 2004 for both En Route and
+Terminal domains
+
+ Analyses include
+ Trend analysis by variety of factors including
+facility, position, time on position, number of
+aircraft controlled, and training
+ Identification of outliers
+ Causal factors
+
+ Impact of selected future programs on OEs
+
+3
+
+ 2009 The MITRE Corporation. All rights reserved.
+
+Methodology
+ Conducted detailed causal factor analysis
+ 692 Fiscal Year 2005 (FY05) En Route OEs for 20* Air Route
+Traffic Control Centers (ARTCC) done in 2006
+
+ Rotating teams consisting of a former controller and an
+analyst reviewed the narrative text for each OE
+ Achieved consensus on involvement of over 40 unique
+factors that could cause or contribute to an OE; Categories
+of factors include:
+ Communications
+ Display and Interpretation
+ Practices and Procedures
+ Coordination/Staffing
+
+4
+
+* Excludes Anchorage ARTCC
+
+ 2009 The MITRE Corporation. All rights reserved.
+
+Methodology (continued)
+ Scored factors from zero to three where zero meant not
+present and three meant the factor was causal to the OE
+ An OE can have multiple causal factors
+
+ Impact of selected future programs on OEs was based on
+ Operational Concept as defined at the time of the analysis
+including lead time and phase of flight
+ Judgment of SME and analysts
+
+ Aircraft involved in OE (e.g., in the case of Data
+Communications, low-end General Aviation aircraft might not
+invest in Data Communication equipment)
+ OE Mitigation Likelihood Scale
+ No impact
+ Low probability of preventing OE
+ Good probability of preventing OE
+ High probability of preventing OE
+5
+
+ 2009 The MITRE Corporation. All rights reserved.
+
+OE Definitions
+ OE Definition Changes
+ Federal Aviation Administration (FAA) changed the definition
+of an OE and associated severity classifications with three
+notices between February and June 2007
+ Analyses are based on the original definitions which was in
+effect in FY05 and FY06
+
+ Operational Error from 7210.56C, 5-5-1: An occurrence
+attributable to an element of the air traffic system in which:
+1. Less than the applicable separation minima results between 2 or
+more aircraft, or between an aircraft and terrain or obstacles (e.g.,
+operations below minimum vectoring altitude (MVA); equipment /
+personnel on runways), as required by FAA Order 7110.65 or other
+national directive; or
+2. An aircraft lands or departs on a runway closed to aircraft
+operations after receiving air traffic authorization.
+3. An aircraft lands or departs on a runway closed to aircraft
+operations, at an uncontrolled airport and it was determined that a
+NOTAM regarding the runway closure was not issued to the pilot as
+required.
+6
+
+ 2009 The MITRE Corporation. All rights reserved.
+
+Severity Index (SI) Classification
+(used by FAA during analysis period)
+
+ FAA tracks the degree of seriousness (severity) of an OE
+where Category A and B are considered the most severe
+ Factors* used to determine SI Classification include:
+ Vertical and Horizontal Separation
+ Closure rate
+ Flight Paths
+ Controlled/Uncontrolled
+
+ OE SI classification is based on total points:
+ Category A: 90 points and above
+ Category B: 40 to 89 points and uncontrolled
+ Category C: 40 to 89 points and controlled
+
+ Category D: 39 points and below
+
+* Point values associated with these factors can be found in Appendix
+7
+
+ 2009 The MITRE Corporation. All rights reserved.
+
+Communication-Related OEs
+ Types of communications-related OEs include:
+ Readback/hearback
+ Issued different altitude than intended
+
+ Issued control instruction to wrong aircraft
+ Transposed call sign
+ Failure to update data block
+ Several analyses indicate that approximately 20% of all En Route
+OEs are communications related
+ 23% found in CAASD analysis of 680 OEs in 2002 and 2003
+ 20% found in 1,359 OEs in FY04 and FY05 based on preliminary
+information
+ 23% of all operational errors at Miami Center for the five year
+period from January 1998 to September 2003 could have been
+avoided by [data link]  Miami ARTCC
+
+ Communication-related OEs tend to be higher severity
+8
+
+ 2009 The MITRE Corporation. All rights reserved.
+
+Data Communication Impact on
+En Route OEs
+ Communication-related OEs accounted for 30
+percent of En Route OEs in FY05
+
+ Data Communications
+estimated to mitigate*
+23 percent of En Route
+OEs
+
+FY05 En Route OEs
+
+Remaining
+OEs
+
+ Includes 32 percent of
+more severe OEs
+
+High Severity
+OEs
+
+32% of High Severity
+Operational Errors
+could be prevented
+with Data Communications
+
+Data Communications could prevent
+over 23% of all En Route OEs
+
+ Caveat: analysis uses OE and
+severity definitions in use in FY05
+
+*Includes those OEs with good or high probability of mitigating the OE
+9
+
+ 2009 The MITRE Corporation. All rights reserved.
+
+Appendix
+
+ 2009 The MITRE Corporation. All rights reserved.
+
+Radar OE Severity Index En Route Chart
+VERTICAL SEPARATION
+1,000 feet required
+
+POINTS
+
+POINTS
+
+500 feet to 599 feet
+
+20
+
+12 mile to 0.999 mile
+
+25
+
+600 feet to 699 feet
+
+16
+
+1 mile to 1.499 miles
+
+24
+
+700 feet to 799 feet
+
+12
+
+1.5 miles to 2 miles
+
+24
+
+800 feet to 899 feet
+
+6
+
+2 miles to 2.49 miles
+
+23
+
+900 feet to 999 feet
+
+2
+
+2.5 miles to 2.999 miles
+
+22
+
+3 miles to 3.499 miles
+
+20
+
+VERTICAL SEPARATION
+2,000 feet required
+
+11
+
+HORIZONTAL SEPARATION
+5-mile separation requirement
+
+Less than 500 feet
+
+25
+
+3.5 miles to 3.999 miles
+
+16
+
+500 feet to 599 feet
+
+25
+
+4 miles to 4.499 miles
+
+10
+
+600 feet to 699 feet
+
+24
+
+4.5 miles to 4.999 miles
+
+5
+
+700 feet to 799 feet
+
+24
+
+800 feet to 899 feet
+
+23
+
+700 knots and greater
+
+10
+
+900 feet to 999 feet
+
+22
+
+300 knots to 699 knots
+
+8
+
+1,000 feet to 1,099 feet
+
+20
+
+100 knots to 299 knots
+
+6
+
+1,100 feet to 1,199 feet
+
+18
+
+Less than 100 knots
+
+4
+
+1,200 feet to 1,299 feet
+
+16
+
+1,300 feet to 1,399 feet
+
+14
+
+Converging . Opposite Courses
+
+20
+
+1,400 feet to 1,499 feet
+
+12
+
+Converging . Crossing Courses
+
+18
+
+1,500 feet to 1,599 feet
+
+10
+
+Same Course
+
+10
+
+1,600 feet to 1,699 feet
+
+8
+
+Diverging/Non-Intersecting
+
+0
+
+1,700 feet to 1,799 feet
+
+6
+
+1,800 feet to 1,899 feet
+
+4
+
+Uncontrolled
+
+20
+
+1,900 feet 10 1,999 feet
+
+2
+
+Controlled with TCAS RA
+
+15
+
+Controlled with no TCAS RA
+
+4
+
+CLOSURE RATE
+
+FLIGHT PATHS
+
+ATC CONTROL FACTOR
+
+POINTS
+
+POINTS
+
+POINTS
+
+Standard separation in the en route environment is 5 nautical miles horizontally and 1,000 ft
+vertically up to 41,000 ft, and 2,000 feet vertically above 41,000 feet. All references to miles in this
+report are nautical miles. A nautical mile is equivalent to 6,076 ft.
+ 2009 The MITRE Corporation. All rights reserved.
+
+Radar OE Severity Index Terminal and En
+Route Single-site Chart (TE-Single-Site)
+VERTICAL SEPARATION
+
+HORIZONTAL SEPARATION
+3-mile separation requirement
+
+POINTS
+
+Less than 500 feet
+
+25
+
+Less than 12 mile
+
+25
+
+500 feet to 599 feet
+
+20
+
+12 mile to 0.999 mile
+
+18
+
+600 feet to 699 feet
+
+16
+
+1 mile to 1.499 miles
+
+14
+
+700 feet to 799 feet
+
+12
+
+1.5 miles to 2 miles
+
+10
+
+800 feet to 899 feet
+
+6
+
+2 miles to 2.49 miles
+
+6
+
+900 feet to 999 feet
+
+2
+
+2.5 miles to 2.999 miles
+
+2
+
+CLOSURE RATE
+
+POINTS
+
+HORIZONTAL SEPARATION
+2.5-mile requirement
+
+POINTS
+
+700 knots and greater
+
+10
+
+Less than 12 mile
+
+25
+
+300 knots to 699 knots
+
+8
+
+12 mile to 0.999 mile
+
+20
+
+100 knots to 299 knots
+
+6
+
+1 mile to 1.499 miles
+
+16
+
+Less than 100 knots
+
+4
+
+1.5 miles to 1.999 miles
+
+10
+
+2 miles to 2.499 miles
+
+4
+
+FLIGHT PATHS
+
+12
+
+POINTS
+
+POINTS
+
+Converging . Opposite Courses
+
+20
+
+ATC CONTROL FACTOR
+
+POINTS
+
+Converging . Crossing Courses
+
+18
+
+Uncontrolled
+
+20
+
+Same Course
+
+10
+
+Controlled with TCAS RA
+
+15
+
+Diverging/Non-Intersecting
+
+0
+
+Controlled with no TCAS RA
+
+4
+
+ 2009 The MITRE Corporation. All rights reserved.
+
+

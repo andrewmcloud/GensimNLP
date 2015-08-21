@@ -1,0 +1,643 @@
+Approved for Public Release; Distribution Unlimited
+Case # 09-2161
+
+UNCLASSIFIED
+ The MITRE Corporation. All rights reserved.
+
+853d Electronic Systems Group
+Integrity - Service - Excellence
+
+Assessment of Military
+VHF Radios used for
+ATC Voice Communications
+
+Mr. Michael Bernock
+853d Electronic Systems Group
+Hanscom AFB, MA
+UNCLASSIFIED
+
+UNCLASSIFIED
+
+Overview
+
+
+
+
+
+
+
+Why assess?
+What are the civil requirements
+Major artifacts
+853d Performance Assessment history
+Lessons Learned
+Closing Remarks
+
+UNCLASSIFIED
+
+Integrity - Service - Excellence
+
+UNCLASSIFIED
+
+Why Assess?
+
+
+Regulatory issues
+
+
+
+
+
+
+Cohabitation
+
+
+
+
+
+
+Control of RF emissions
+Interoperability
+Protection from harmful interference
+
+8.33 kHz channelization: Why the fuss?
+Civil/derivative platforms: TSOd hardware
+Military unique: self certification
+
+Other
+
+
+
+Focus on military functionality
+Programmatic and logistical issues
+
+UNCLASSIFIED
+
+Integrity - Service - Excellence
+
+UNCLASSIFIED
+
+Civil Requirements:
+The Generic VHF Voice Matrix
+
+
+
+
+
+
+
+
+ICAO SARPS
+International Standards and Recommended Practices, Annex 10,
+Volume III, Part II, Voice Communication Systems
+
+TSO-C169
+
+VHF Radio Communications Transceiver Equipment Operating
+Within the Radio Frequency Range 117.975  137.000 MHz
+
+RTCA DO-186
+
+Minimum Operational Performance Standards for Airborne
+Radio Communications Equipment Operating Within the Radio
+Frequency Range 117.975  137.000 MHz
+
+Eurocae ED-23
+
+Minimum Performance Specification for Airborne VHF Receiver
+ Transmitter Operating in the Frequency Range 117.975 
+137.000 MHz
+UNCLASSIFIED
+
+Integrity - Service - Excellence
+
+UNCLASSIFIED
+
+Overview of Major Artifacts
+
+
+Box Level Performance
+
+
+
+
+
+
+
+Bench Test Report; JITC test program
+EMI/EMC Test Report
+Environmental Test Report
+DD Form 1494
+
+Installed Performance
+
+
+
+
+Compatibility with platform power/environment
+Installation Verification Test (IVT, EMI/EMC)
+Ground/Flight Test Report (contractor/Govt)
+o
+o
+
+Control/display operation, visibility, and access
+Communications range testing (AC 25-7A)
+
+UNCLASSIFIED
+
+Integrity - Service - Excellence
+
+Flight Testing: AC 25-7A
+Transmitter Class
+
+
+
+
+
+3: 25 kHz, 200 mile
+4: 25 kHz, 100 mile *
+5: 8.33 kHz, 200 mile
+6: 8.33 kHz, 100 mile *
+
+Left & right
+circle turn
+
+
+
+Long Range Test
+ High Angle Test
+ Approach
+
+170  180 NM
+
+(*) Operational Altitude threshold: 18k
+LOS Voice Radio Checks (TX & RX) every 10 degrees
+Minimum 10 degree bank
+> 17,000 ft altitude
+Both left and right circle turn
+
+CNS / ATM Tower
+
+Long Range Reception (top view)
+
+Integrity - Service - Excellence
+
+UNCLASSIFIED
+
+PA History
+
+
+Complete
+
+
+
+
+
+
+
+
+RT-1851A/ARC-210
+RT-1851/ARC-210, Warrior
+RT-1818/ARC-232 (Exportable)
+RT-1794/ARC-210
+RT-1826/ARC-234, AITG
+
+Compliance
+
+Risk
+
+Compliance
+
+Risk
+
+Compliance
+
+Risk
+
+Compliance
+
+Risk
+
+Compliance
+
+Risk
+
+In process
+
+
+RT-1747/ARC-210
+
+UNCLASSIFIED
+
+Integrity - Service - Excellence
+
+UNCLASSIFIED
+
+Lessons Learned
+
+
+Box Level Issues
+
+
+
+
+
+
+
+Transmitter emissions & modulation spectrum
+Receiver susceptibility to interference
+Offset carrier systems & CLIMAX squelch
+DO-176 & FM immunity
+
+Installed Performance Issues
+
+
+
+
+
+
+Control & display: Discrete vs. integrated
+8.33 channel display and operator training
+Platform environment and power
+Communications range
+Antenna choice
+
+UNCLASSIFIED
+
+Integrity - Service - Excellence
+
+UNCLASSIFIED
+
+Evolving Civil Requirements
+RTCA DO-186B now current
+
+
+
+Incorporates Changes 1&2: GNSS band emissions and administrative
+cleanup
+ Incorporates 25 kHz offset/multi-carrier squelch requirement from
+TSO-C169
+ No new requirements developed
+
+
+
+
+Eurocae ED-23C is in the wings
+
+Introduces 8.33 kHz offset/multi-carrier receivers (G1/G2)
+ No word yet on implementation mandate
+ Steeper roll-off above Rx audio passband
+ Improved squelch operation in offset/multi-carrier environment
+
+
+
+
+NextGen/Single European Sky
+
+
+
+Nothing on the radar yet
+
+UNCLASSIFIED
+
+Integrity - Service - Excellence
+
+UNCLASSIFIED
+
+25 kHz vs. 8.33 kHz Modes and
+Offset Carrier Systems
+
+UNCLASSIFIED
+
+Integrity - Service - Excellence
+
+UNCLASSIFIED
+
+Info on 8.33 kHz Operation
+
+UNCLASSIFIED
+
+Channel
+
+Tx/Rx
+
+Mode
+
+124.400
+
+124.400
+
+25 kHz
+
+124.405
+
+124.400
+
+8.33 kHz
+
+124.410
+
+124.40833
+
+8.33 kHz
+
+124.415
+
+124.41667
+
+8.33 kHz
+
+124.425
+
+124.425
+
+25 kHz
+
+124.430
+
+124.425
+
+8.33 kHz
+
+Integrity - Service - Excellence
+
+UNCLASSIFIED
+
+25 kHz Channelized System
+
+UNCLASSIFIED
+
+Integrity - Service - Excellence
+
+UNCLASSIFIED
+
+25 kHz Channelized System
+
+
+
+
+Frequency Stability
+Offset Carrier operation
+
+UNCLASSIFIED
+
+Integrity - Service - Excellence
+
+UNCLASSIFIED
+
+25 kHz Channelized System
+
+UNCLASSIFIED
+
+Integrity - Service - Excellence
+
+UNCLASSIFIED
+
+25 kHz Channelized System
+
+UNCLASSIFIED
+
+Integrity - Service - Excellence
+
+UNCLASSIFIED
+
+8.33 kHz Channelized System
+
+UNCLASSIFIED
+
+Integrity - Service - Excellence
+
+UNCLASSIFIED
+
+25 kHz Receiver in
+8.33 kHz Channelized System
+
+UNCLASSIFIED
+
+Integrity - Service - Excellence
+
+UNCLASSIFIED
+
+8.33 kHz Receiver in
+25 kHz Channelized System
+
+UNCLASSIFIED
+
+Integrity - Service - Excellence
+
+UNCLASSIFIED
+
+8.33 kHz Receiver in
+25 kHz Channelized System
+
+UNCLASSIFIED
+
+Integrity - Service - Excellence
+
+UNCLASSIFIED
+
+8.33 kHz Receiver in
+25 kHz Channelized System
+
+UNCLASSIFIED
+
+Integrity - Service - Excellence
+
+UNCLASSIFIED
+
+Offset Carrier System
+F3
+
+BANJO Center 123.45
+F2
+F1
+
+F1 F2 F3
+
+123.455
+123.450
+123.445
+
+UNCLASSIFIED
+
+Integrity - Service - Excellence
+
+UNCLASSIFIED
+
+Offset Carrier System
+F3
+
+BANJO Center 123.45
+F2
+F1
+
+F1 F2 F3
+
+123.455
+123.450
+123.445
+
+UNCLASSIFIED
+
+Integrity - Service - Excellence
+
+UNCLASSIFIED
+
+Offset Carrier System
+F3
+
+BANJO Center 123.45
+F2
+F1
+
+F1 F2 F3
+
+123.455
+123.450
+123.445
+
+UNCLASSIFIED
+
+Integrity - Service - Excellence
+
+UNCLASSIFIED
+
+Offset Carrier System
+F3
+
+BANJO Center 123.45
+F2
+F1
+
+F1 F2 F3
+
+123.455
+123.450
+123.445
+
+UNCLASSIFIED
+
+Integrity - Service - Excellence
+
+UNCLASSIFIED
+
+25 kHz Receiver in
+Offset Carrier System
+
+UNCLASSIFIED
+
+Integrity - Service - Excellence
+
+UNCLASSIFIED
+
+25 kHz Receiver in
+Offset Carrier System
+
+UNCLASSIFIED
+
+Integrity - Service - Excellence
+
+UNCLASSIFIED
+
+25 kHz Receiver in
+Offset Carrier System
+
+UNCLASSIFIED
+
+Integrity - Service - Excellence
+
+UNCLASSIFIED
+
+25 kHz Receiver in
+Offset Carrier System
+
+UNCLASSIFIED
+
+Integrity - Service - Excellence
+
+UNCLASSIFIED
+
+25 kHz Receiver in
+Offset Carrier System
+
+UNCLASSIFIED
+
+Integrity - Service - Excellence
+
+UNCLASSIFIED
+
+25 kHz Receiver in
+Offset Carrier System
+
+UNCLASSIFIED
+
+Integrity - Service - Excellence
+
+UNCLASSIFIED
+
+25 kHz Receiver in
+Offset Carrier System
+
+UNCLASSIFIED
+
+Integrity - Service - Excellence
+
+UNCLASSIFIED
+
+8.33 kHz Receiver in
+Offset Carrier System
+
+UNCLASSIFIED
+
+Integrity - Service - Excellence
+
+UNCLASSIFIED
+
+Closing Remarks
+
+THANKS FOR YOUR ATTENTION
+Questions?
+
+UNCLASSIFIED
+
+Integrity - Service - Excellence
+
+UNCLASSIFIED
+
+Offset Carrier System
+F3
+
+BANJO Center 123.45
+F2
+F1
+
+F1 F2 F3
+
+123.455
+123.450
+123.445
+
+UNCLASSIFIED
+
+Integrity - Service - Excellence
+
+UNCLASSIFIED
+
+Offset Carrier System
+F3
+
+BANJO Center 123.45
+F2
+F1
+
+F1 F2 F3
+
+123.455
+123.450
+123.445
+
+UNCLASSIFIED
+
+Integrity - Service - Excellence
+
+

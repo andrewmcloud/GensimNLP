@@ -1,0 +1,104 @@
+Approved for Public Release; Distribution Unlimited
+Case # 09-2093
+ The MITRE Corporation. All rights reserved.
+
+A Successful Landing: Modeling Chicagos Airspace in Real Time
+If youve ever passed through Chicagos OHare Airport, you probably know firsthand that its
+one of the worlds busiest. Airplanes awaiting their turn for takeoff line up on the runway like
+taxicabs during rush hour. Numerous industry projections estimate that OHare will only get
+busier in the future.
+
+The strain on the airport has created the need for more capacity. Fortunately, a major effort
+designed to ease congestionthe $6.6 billion, multiphase OHare Modernization Program
+(OMP)is already underway. The OMP will increase the number of air traffic control towers
+and runways to meet the regions current and future aviation needs.
+
+MITRE, which operates the Federal Aviation Administrations federally funded research and
+development center, has been supporting the OMP in a variety of ways. Among the most
+notable: When two key stakeholders couldnt settle on the best way to work air traffic into new
+routes, we devised a modeling technique for on-site testing to help them reach consensus.
+
+Keeping Humans in the Loop
+Last year, MITRE was asked to help solve a challenge that affected the airspace changes for the
+OMPs first phase, explains Shane Miller, a MITRE principal software application development
+engineer. Two facilitiesthe Chicago Terminal Radar Approach Control [known in aviation
+parlance as C90] and the Chicago Air Route Traffic Control Center [known as ZAU]couldnt
+agree on how southbound departures should be delivered to five new departure tracks. This was
+due to lack of common understanding of each others internal operations and tools to explore
+possible solutions.
+
+These new routes were planned to not only support the OMP, but the overall redesign of
+Chicagos airspace as well. The two parties needed to agree on what procedures to use, so we
+set up a human-in-the-loop [HITL] evaluation to explore options for delivering aircraft on to the
+five new routes, she adds.
+
+ The MITRE Corporation. All rights reserved.
+
+The term human-in-the-loop refers to a modeling and simulation experiment that involves both
+computers and humans using a particular application. The goals of such experiments may be
+varied; in the case of air-traffic human-in-the-loop simulations, often the goal is to identify how
+to efficiently manage traffic through a piece of airspace, while at the same time balancing air
+traffic controller workload across multiple facilities.
+Asked to Help Solve a Problem
+While C90 is responsible for airspace at 15,000 feet and below, and the planes flying through it,
+ZAU is responsible for the airspace above. Typically, the two facilities work together on
+departures.
+
+Both facilities tried on their own many times, over months, to agree on the best way to deliver
+departures from C90 to ZAU, Miller explains. But as the deadline for a decision approached,
+there was still no firm agreement on how to handle the delivery of departures. One option, for
+example, was to merge and sequence departures from OHare and Midway into each of the five
+new streams, while the other option was to stack OHare departures on top of Midway
+departures.
+
+With the deadline looming in a month, the FAA asked MITRE to resolve the problem. A team of
+five engineers, including Miller, Thor Abrahamsen, Lee Brown, Steve Kalbaugh, and Leang
+Ross, accompanied by two simulation modeling experts, Paul MacWilliams and Jeff Shepley,
+traveled to Chicago with much gear in tow.
+
+The team arrived at C90s location early on a Monday morning with a dozen computers, four
+projectors, routers, cables, and everything else necessary to set up a lab in the facilitys
+conference room. By Tuesday morning, ZAU and C90 employees were looking at their
+respective airspace on computer screens, and simulating their roles of working on air traffic
+challenges from actual, real-time radar data.
+The novel experiment marked the first time an HITL evaluation of this type was taken on the
+road. While MITRE has conducted such experiments at a single terminal facility alone, it was the
+
+ The MITRE Corporation. All rights reserved.
+
+first time combined, interactive modeling for both a terminal and a busy center was deployed on
+location.
+
+In this case, MITREs HITL simulation allowed C90 and en route controllers to talk to one other
+and control the same aircraft. The mission was to clarify which option was the best way to
+handle southbound Chicago departure traffic over five departure tracks instead of three. To
+make the results as robust as possible, additional air traffic controllers were summoned to the
+conference room from their normal shift work to take part in the activity.
+
+Ranking for Results
+
+We ran five different proposed departure-track scenarios over the course of the week, so both
+facilities could evaluate all proposed options for transitioning southbound departures, Miller
+recalls. But by the end there was still no clear agreement between the two parties. So we had
+each facility rank the five options, based on what was most important to them. The ranking
+process uncovered a point of agreementboth C90 and ZAU ranked one particular scenario at
+the same level of desirability.
+
+The ultimate result? The modeling provided enough information to resolve the issue so that both
+facilities were comfortable with the outcome: All five southbound departure tracks are used by
+both OHare and Midway airports independently. When the timing of the departures is such that
+two departures, one from each airport, would like to use the same track at the same time, the
+OHare departure is stacked on top of the Midway departure.
+
+ZAU has since followed up with MITRE, partnering with us to determine best practices for its
+own airspace when running the agreed-upon departure routes.
+
+As the OMP continues its rollout, Miller notes that the work we performed at our sponsors
+location, in addition to the preparation and follow-up tasks we have conducted, should have a
+positive benefit for anyone whose plane has to fly through Chicago airspace.
+
+ The MITRE Corporation. All rights reserved.
+
+(END)
+
+
