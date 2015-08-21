@@ -5,7 +5,7 @@ def main():
     from importCorpus import read_docs
     from preProcess import strip_docs
     from preProcess import tokenize_corpus
-    from buildCorpus import build_corpus
+    from corpusTools import build_corpus
     from validatePDF import validate_pdf
     '''
     doc_list, file_dict, doc_dict = read_docs('test_corpus/')
