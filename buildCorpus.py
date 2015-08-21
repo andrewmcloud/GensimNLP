@@ -1,24 +1,13 @@
 __author__ = 'andrew'
+from gensim import corpora
 
-import os
-def read_docs(readdir):
+def __build_dict(texts, dict_filepath):
+    dictionary = corpora.Dictionary(texts)
+    dictionary.save(dict_filepath) #store the dictionary for future use
+    return dictionary
 
-    doc_list = []
-    file_dict = {}
-    doc_dict = {}
-
-    #initialize doc_list && doc_dict
-    for root, dirs, files in (os.walk(readdir, topdown=False)):
-        for i, name in enumerate(files):
-            #build full file path
-            p = os.path.join(root, name)
-            if not p.lower().endswith('.txt'): continue
-            else:
-                f = open(p, 'r')
-                doc_list.append(f.read())
-                file_dict[len(doc_list) - 1] = p
-                doc_dict[len(doc_list) - 1] = name
-
-
-    return doc_list, file_dict, doc_dict
-
+#print dictionary.token2id
+def build_corpus(texts, corpora_filepath):
+    corpus = [__build_dict(texts, 'dictionary.dict').doc2bow(text) for text in texts]
+    corpora.MmCorpus.serialize(corpora_filepath, corpus)
+    return corpus
