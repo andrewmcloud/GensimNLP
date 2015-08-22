@@ -9,12 +9,9 @@ def tokenize_corpus(documents, min_df=0.1, max_df=0.9):
     texts = [[word for word in document.lower().strip().split() if word not in stopwords]
              for document in documents]
 
-
-
     frequency = defaultdict(int)
 
     for text in texts:
-        print('here')
         set_list = []
         for token in text:
             if token not in set_list:
@@ -33,15 +30,10 @@ def tokenize_corpus(documents, min_df=0.1, max_df=0.9):
                 temp.append(token)
         returnlist.append(temp)
 
-
-    #texts = [[token for token in text if frequency[token] > min_n]
-    #         for text in texts]
-
     return returnlist
 
 def tokenize_doc(document):
     return [word for word in document.lower().strip().split() if word not in stopwords]
-
 
 
 def strip_unicode(s):

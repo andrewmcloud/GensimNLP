@@ -1,14 +1,19 @@
 __author__ = 'andrew'
 from gensim import corpora
+from fileTools import verify_filesave
+import os
 
-def __build_dict(texts, dict_filepath):
+def __build_dict(texts, writedir, filename='dictionary.dict'):
     dictionary = corpora.Dictionary(texts)
-    dictionary.save(dict_filepath) #store the dictionary for future use
+    dict_path = os.path.join(writedir + verify_filesave(writedir, filename))
+    dictionary.save(dict_path) #store the dictionary for future use
     return dictionary
 
-def build_corpus(texts, corpora_filepath):
-    corpus = [__build_dict(texts, 'dictionary.dict').doc2bow(text) for text in texts]
-    corpora.MmCorpus.serialize(corpora_filepath, corpus)
+def build_corpus(texts, writedir, filename='corpus.mm', dictfilename='dictionary.dict'):
+    dictionary = __build_dict(texts, writedir, dictfilename)
+    corpus = [dictionary.doc2bow(text) for text in texts]
+    corpus_path = os.path.join(writedir + verify_filesave(writedir, filename))
+    corpora.MmCorpus.serialize(corpus_path, corpus)
     return corpus
 
 def load_dict(dict_filepath):
