@@ -3,16 +3,16 @@ from gensim import corpora
 from fileTools import verify_filesave
 import os
 
-def __build_dict(texts, writedir='corpus_dict/', filename='dictionary.dict'):
+def __build_dict(texts, writedir='corpus_dict/', dict_filename='dictionary.dict'):
     dictionary = corpora.Dictionary(texts)
-    dict_path = os.path.join(writedir + verify_filesave(writedir, filename))
+    dict_path = os.path.join(writedir + verify_filesave(writedir, dict_filename))
     dictionary.save(dict_path) #store the dictionary for future use
     return dictionary
 
-def build_corpus(texts, writedir='corpus_dict/', filename='corpus.mm', dictfilename='dictionary.dict'):
-    dictionary = __build_dict(texts, writedir, dictfilename)
+def build_corpus(texts, writedir='corpus_dict/', corpus_filename='corpus.mm', dict_filename='dictionary.dict'):
+    dictionary = __build_dict(texts, writedir, dict_filename)
     corpus = [dictionary.doc2bow(text) for text in texts]
-    corpus_path = os.path.join(writedir + verify_filesave(writedir, filename))
+    corpus_path = os.path.join(writedir + verify_filesave(writedir, corpus_filename))
     corpora.MmCorpus.serialize(corpus_path, corpus)
     return corpus
 

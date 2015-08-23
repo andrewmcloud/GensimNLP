@@ -24,7 +24,7 @@ def kmeans(data, k=3):
     centers = km.cluster_centers_
     return data, clusters, centers
 
-def plot_2d_clusters(data, clusters, centers, writedir='clusters', filename='clusters.png'):
+def plot_2d_clusters(data, clusters, centers, writedir='clusters/', filename='clusters.png'):
     k = len(centers)
     data = data.toarray()
 
@@ -42,9 +42,9 @@ def plot_2d_clusters(data, clusters, centers, writedir='clusters', filename='clu
 
     plot_path = os.path.join(writedir + verify_filesave(writedir, filename))
     plt.savefig(plot_path)
-    plt.show()
+    #plt.show()
 
-def cluster_terms(data, clusters, centers, dictionary, writedir='clusters', filename='cluster_terms.txt'):
+def cluster_terms(data, clusters, centers, dictionary, writedir='clusters/', filename='cluster_terms.txt'):
     k = len(centers)
 
     #create an ordered list of terms from dictionary
@@ -53,9 +53,10 @@ def cluster_terms(data, clusters, centers, dictionary, writedir='clusters', file
     f = open(os.path.join(writedir, verify_filesave(writedir, filename)), 'w')
     f.write('Cluster,Term,Contribution,Cluster Size\n')
     term_list = []
+    term_dict = {}
 
     for c in range(0, k):
-        print '\nCluster {}'.format(c)
+        print 'Processing cluster {}'.format(c)
         inds = where(clusters == c)[0]
         notinds = where(clusters != c)[0]
 
@@ -66,10 +67,10 @@ def cluster_terms(data, clusters, centers, dictionary, writedir='clusters', file
         for i in range(0, 50):
             f.write('{},{},{},{}\n'.format(c, s[i][0], s[i][1].item(0), len(inds)))
             term_list.append(s[i][0])
+            term_dict[s[i][0]] = c
+    return term_dict
 
-    return term_list
-
-def determine_clusters(corpus, num_executions=10, writedir='clusters', filename='cluster_distances.png'):
+def determine_clusters(corpus, num_executions=10, writedir='clusters/', filename='cluster_distances.png'):
 
     dist_list = []
     count = 1

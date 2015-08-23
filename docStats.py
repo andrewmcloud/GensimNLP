@@ -10,7 +10,7 @@ from operator import itemgetter
 from numpy import bincount as np_bincount
 from fileTools import verify_filesave
 
-def get_term_stats(corpus, corpus_tfidf, dictionary, doc_dict, term_list=None, writedir='stats', filename='term_stats.txt'):
+def get_term_stats(corpus, corpus_tfidf, dictionary, doc_dict, term_dict=None, writedir='stats/', filename='term_stats.txt'):
 
     # convert to sparse arrays
     data = matutils.corpus2csc(corpus)
@@ -39,14 +39,14 @@ def get_term_stats(corpus, corpus_tfidf, dictionary, doc_dict, term_list=None, w
     f.write('Term,Count,TF-IDF,DF,Documents\n')
 
     for i, word in enumerate(feature_names):
-        if term_list == None:
+        if term_dict == None:
             f.write('{},{},{},{},{}\n'.format(word, count[i].item(0), tfidf[i].item(0), docfreq[i], doc_str[i]))
         else:
-            if word in term_list:
-                f.write('{},{},{},{},{}\n'.format(word, count[i].item(0), tfidf[i].item(0), docfreq[i], doc_str[i]))
+            if word in term_dict.keys():
+                f.write('{},{},{},{},{},{}\n'.format(word, term_dict[word], count[i].item(0), tfidf[i].item(0), docfreq[i], doc_str[i]))
 
 
-
+import clustering
 #TESTING
 def main():
 
@@ -62,7 +62,7 @@ def main():
 
     #build corpus and dictionary
     print 'building and saving corpus / dictionary'
-    corpusTools.build_corpus(texts, filename='corpus_test.mm', dictfilename='dictionary_test.dict')
+    corpusTools.build_corpus(texts, corpus_filename='corpus_test.mm', dict_filename='dictionary_test.dict')
 
     #loading corpus and dictionary
     print 'loading corpus and dictionary'
@@ -80,10 +80,19 @@ def main():
 
     print 'building transforms'
     corpus_tfidf = models.model_transform(corpus, tfidf)
+    corpus_lsi = models.model_transform(corpus, lsi)
+
+
+    data_lsi, clusters, centers = clustering.kmeans(corpus_lsi, 3)
+    data, clusters, centers = clustering.kmeans(corpus_tfidf, 3)
+
+    clustering.plot_2d_clusters(data_lsi, clusters, centers, 'clusters/')
+    term_list = clustering.cluster_terms(data, clusters, centers, dictionary, 'clusters/')
+
 
     #get term stats
     print 'getting term stats'
-    get_term_stats(corpus, corpus_tfidf, dictionary, doc_dict, term_list=['sector', 'proposed', 'radar'], filename='term_stats_test.txt')
+    get_term_stats(corpus, corpus_tfidf, dictionary, doc_dict, term_dict=term_list, filename='term_stats_test.txt')
 
 
 if __name__ == '__main__':
