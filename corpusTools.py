@@ -3,13 +3,13 @@ from gensim import corpora
 from fileTools import verify_filesave
 import os
 
-def __build_dict(texts, writedir, filename='dictionary.dict'):
+def __build_dict(texts, writedir='corpus_dict/', filename='dictionary.dict'):
     dictionary = corpora.Dictionary(texts)
     dict_path = os.path.join(writedir + verify_filesave(writedir, filename))
     dictionary.save(dict_path) #store the dictionary for future use
     return dictionary
 
-def build_corpus(texts, writedir, filename='corpus.mm', dictfilename='dictionary.dict'):
+def build_corpus(texts, writedir='corpus_dict/', filename='corpus.mm', dictfilename='dictionary.dict'):
     dictionary = __build_dict(texts, writedir, dictfilename)
     corpus = [dictionary.doc2bow(text) for text in texts]
     corpus_path = os.path.join(writedir + verify_filesave(writedir, filename))

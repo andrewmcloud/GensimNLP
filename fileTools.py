@@ -1,6 +1,4 @@
 __author__ = 'andrew'
-
-
 import os
 import shutil as sh
 
@@ -34,29 +32,38 @@ def verify_filesave(writedir, filename):
     return filename
 
 
-
 def comma_exclude(csv_exclude_file, folder_path):
     count = 0
     #Ensure DEV_DIR exists
     if not os.path.exists(os.path.join(folder_path, 'excluded')):
         os.makedirs(os.path.join(folder_path, 'excluded'))
 
-    #Read from comma separated cluster file list
-    if not os.path.exists(os.path.join(folder_path, csv_exclude_file)):
-        print ('{} does not exist'.format(csv_exclude_file))
-    f = open(os.path.join(folder_path, csv_exclude_file), 'r')
+    if not os.path.exists(csv_exclude_file):
+        print ('{} path does not exist'.format(csv_exclude_file))
+    f = open(csv_exclude_file, 'r')
     x = f.read()
 
     #Load comma separated file names into list: file_names[]
     file_names = []
     for exclude in x.split(','):
         exclude = exclude.strip()
-        exclude_path = os.path.join(folder_path, exclude)
-        sh.move(exclude_path, os.path.join(folder_path, 'excluded', exclude))
+        file_path = os.path.join(folder_path, exclude)
+        exclude_path = os.path.join(folder_path, 'excluded', exclude)
+        print 'filepath: {}'.format(file_path)
+        print 'excludepath: {}'.format(exclude_path)
+        sh.move(file_path, exclude_path)
 
+'''
 #MAIN
+import validatePDF
 def main():
-    commaexclude()
+    #comma_exclude(*validatePDF.validate_pdf(readdir='/home/andrew/Desktop/test_corpus,
+    #                                        writedir='/home/andrew/Desktop', per_dict_words=.80, unicode=False))
 
+    comma_exclude('/home/andrew/Desktop/Cyber_Corpus/TXTexclude70.csv', '/home/andrew/Desktop/Cyber_Corpus/TXT')
+
+    #validatePDF.validate_pdf(readdir='/home/andrew/Desktop/Cyber_Corpus/TXT',
+    #                         writedir='/home/andrew/Desktop/Cyber_Corpus', per_dict_words=.70, unicode=True)
 if __name__ == '__main__':
     main()
+'''

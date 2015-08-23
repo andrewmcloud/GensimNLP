@@ -36,7 +36,7 @@ def tokenize_doc(document):
     return [word for word in document.lower().strip().split() if word not in stopwords]
 
 
-def strip_unicode(s):
+def strip_unicode(s, i, j):
     """Strips all unicode characters greater than 127
     :param:
         s:
@@ -49,13 +49,13 @@ def strip_unicode(s):
     """
     string = ''
     for c in s:
-        if (64 < ord(c) < 123) or ord(c) == 32:
+        if (i < ord(c) < j) or ord(c) == 32:
             string += c
 
     return string
 
 
-def strip_docs(documents, unicode=True):
+def strip_docs(documents, unicode=True, i=64, j=123):
 
     stripped_docs = []
     for doc in documents:
@@ -63,7 +63,7 @@ def strip_docs(documents, unicode=True):
         stripped_doc = doc.lower().translate(None, string.punctuation)
         #remove unicode
         if unicode:
-            stripped_doc = strip_unicode(stripped_doc)
+            stripped_doc = strip_unicode(stripped_doc, i, j)
         stripped_docs.append(stripped_doc)
         # print stripped_doc
 
