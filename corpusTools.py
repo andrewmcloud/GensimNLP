@@ -16,6 +16,13 @@ def build_corpus(texts, writedir='corpus_dict/', corpus_filename='corpus.mm', di
     corpora.MmCorpus.serialize(corpus_path, corpus)
     return corpus
 
+def build_corpus_from_dict(texts, dict_filepath, writedir='corpus_dict/', corpus_filename='corpus.mm'):
+    dictionary = load_dict(dict_filepath)
+    corpus = [dictionary.doc2bow(text) for text in texts]
+    corpus_path = os.path.join(writedir + verify_filesave(writedir, corpus_filename))
+    corpora.MmCorpus.serialize(corpus_path, corpus)
+    return corpus
+
 def load_dict(dict_filepath):
     dictionary = corpora.Dictionary.load(dict_filepath)
     return dictionary

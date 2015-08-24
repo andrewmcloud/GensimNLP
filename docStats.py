@@ -47,6 +47,43 @@ def get_term_stats(corpus, corpus_tfidf, dictionary, doc_dict, term_list=None, w
             f.write('{},{},{},{},{}\n'.format(word[0], word[1], count[i].item(0), tfidf[i].item(0), docfreq[i]))
 
 
+def get_entity_stats(corpus, corpus_tfidf, dictionary, doc_dict, entity_dict, writedir='stats/', filename='term_stats.txt'):
+
+    # convert to sparse arrays
+    data = matutils.corpus2csc(corpus)
+    data_tfidf = matutils.corpus2csc(corpus_tfidf)
+
+    # words
+    feature_names = sorted(dictionary.items(), key=itemgetter(0))
+    feature_names = [x[1] for x in feature_names]
+
+    # count
+    count = data.sum(axis=1)
+
+    # tfidf
+    tfidf = data_tfidf.sum(axis=1)
+
+    # document list
+    doc_inds = zip(*data.nonzero())
+    doc_str = ['' for x in range(len(feature_names))]
+    for term_doc in doc_inds:
+        doc_str[term_doc[0]] = doc_str[term_doc[0]] + ' | ' + doc_dict[term_doc[1]]
+
+    # document frequency
+    docfreq = np_bincount(data.indices)
+
+    f = open(os.path.join(writedir, verify_filesave(writedir, filename)), 'w')
+    if term_list == None:
+        f.write('Term,Count,TF-IDF,DF,Documents\n')
+        for i, word in enumerate(feature_names):
+            f.write('{},{},{},{},{}\n'.format(word, count[i].item(0), tfidf[i].item(0), docfreq[i], doc_str[i]))
+    else:
+        f.write('Term,Cluster,Count,TF-IDF,DF\n')
+        for word in term_list:
+            i = feature_names.index(word[0])
+            f.write('{},{},{},{},{}\n'.format(word[0], word[1], count[i].item(0), tfidf[i].item(0), docfreq[i]))
+
+
 import clustering
 #TESTING
 def main():
@@ -55,12 +92,12 @@ def main():
               doc_dict_fn='doc_dict_test.dict', file_dict_fn='file_dict_test.dict')
 
     #strips corpus of punctuation and unusual unicode characters
-    print 'preprocessing text'
-    doc_list = preProcess.strip_docs(doc_list)
+    #print 'preprocessing text'
+    # doc_list = preProcess.strip_docs(doc_list, unicode=False)
 
     #tokenize text
-    print 'tokenizing text'
-    texts = preProcess.tokenize_corpus(doc_list, n=2, min_df=0.1, max_df=0.8)
+    print 'preprocessing & tokenizing text'
+    texts = preProcess.tokenize_corpus(doc_list, n=3, min_df=0.1, max_df=0.8)
 
     #build corpus and dictionary
     print 'building and saving corpus / dictionary'
