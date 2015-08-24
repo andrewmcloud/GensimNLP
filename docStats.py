@@ -95,7 +95,7 @@ def main():
 
     #get term stats
     print 'getting term stats'
-    get_term_stats(corpus, corpus_tfidf, dictionary, doc_dict, term_list=term_list, filename='term_stats_test.txt')
+    get_term_stats(corpus, corpus_tfidf, dictionary, doc_dict, term_list=term_list, filename='term_stats_test2.txt')
 
 
 if __name__ == '__main__':

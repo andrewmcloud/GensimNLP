@@ -12,13 +12,14 @@ def tokenize_corpus(documents, n=1, min_df=0.1, max_df=0.9):
     texts = [[word for word in ngram(document, n) if word not in stopwords] for document in documents]
 
     frequency = defaultdict(int)
-
+    '''
     for text in texts:
         set_list = []
         for token in text:
             if token not in set_list:
                 set_list.append(token)
                 frequency[token] += 1
+    '''
 
     n = len(documents)
     max_n = int(round(max_df * n))
@@ -26,12 +27,28 @@ def tokenize_corpus(documents, n=1, min_df=0.1, max_df=0.9):
 
     returnlist = []
     for text in texts:
+        set_text = set(text)
+        for set_token in set_text:
+            frequency[set_token] += 1
+
+
+    for text in texts:
+        tmp = []
+        for token in text:
+            if min_n < frequency[token] < max_n:
+                tmp.append(token)
+        returnlist.append(tmp)
+
+
+    '''
+    returnlist = []
+    for text in texts:
         temp = []
         for token in text:
             if min_n < frequency[token] < max_n:
                 temp.append(token)
         returnlist.append(temp)
-
+    '''
     return returnlist
 
 def tokenize_doc(document):
