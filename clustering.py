@@ -24,6 +24,7 @@ def kmeans(data, k=3):
     centers = km.cluster_centers_
     return data, clusters, centers
 
+
 def plot_2d_clusters(data, clusters, centers, writedir='clusters/', filename='clusters.png'):
     k = len(centers)
     data = data.toarray()
@@ -43,6 +44,7 @@ def plot_2d_clusters(data, clusters, centers, writedir='clusters/', filename='cl
     plot_path = os.path.join(writedir + verify_filesave(writedir, filename))
     plt.savefig(plot_path)
     #plt.show()
+
 
 def cluster_terms(data, clusters, centers, dictionary, writedir='clusters/', filename='cluster_terms.txt'):
     k = len(centers)
@@ -68,6 +70,7 @@ def cluster_terms(data, clusters, centers, dictionary, writedir='clusters/', fil
             #term_list.append(s[i][0])
             term_list.append((s[i][0],c))
     return term_list
+
 
 def determine_clusters(corpus, num_executions=10, writedir='clusters/', filename='cluster_distances.png'):
 

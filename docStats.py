@@ -1,9 +1,5 @@
 __author__ = 'andrew'
 
-import importCorpus
-import preProcess
-import corpusTools
-import models
 import os
 from gensim import matutils
 from operator import itemgetter
@@ -89,6 +85,11 @@ def get_entity_stats(corpus, corpus_tfidf, dictionary, doc_dict, ne_tuple_lists=
 
 
 import clustering
+import importCorpus
+import preProcess
+import corpusTools
+import models
+
 #TESTING
 def main():
 

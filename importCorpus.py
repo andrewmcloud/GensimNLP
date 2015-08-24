@@ -36,6 +36,7 @@ def save_obj(obj, filename, writedir='obj/'):
     f = open(os.path.join(writedir, verify_filesave(writedir, filename)), 'w')
     pickle.dump(obj, f)
 
+
 def load_objs(readdir, *filenames):
     if len(filenames) == 1:
         f = open(os.path.join(readdir, filenames[0]), 'r')
@@ -46,6 +47,7 @@ def load_objs(readdir, *filenames):
             f = open(os.path.join(readdir, filenames[i]), 'r')
             objlist.append(pickle.load(f))
         return objlist
+
 
 #save_obj, load_obj unit testing
 '''

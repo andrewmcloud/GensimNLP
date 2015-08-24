@@ -4,7 +4,6 @@ from collections import defaultdict
 import string
 
 
-
 def tokenize_corpus(documents, n=1, min_df=0.1, max_df=0.9):
     #tokenize documents to appropriate n-gram token length
     texts = [[word for word in ngram(document, n)] for document in documents]
@@ -40,10 +39,12 @@ def min_max_df(texts, n, min_df=0.1, max_df=0.9):
 def strip_unicode(s, u_start, u_stop):
     return ''.join([c for c in s if (u_start < ord(c) < u_stop) or ord(c) == 32])
 
+
 def translate_non_alphanumerics(to_translate, translate_to=None):
     not_letters_or_digits = u'!"#%\'()*+,-./:;<=>?@[\]^_`{|}~'
     translate_table = dict((ord(char), translate_to) for char in not_letters_or_digits)
     return to_translate.translate(translate_table)
+
 
 def strip_doc(document, u_start=47, u_stop=123):
     if type(document) == unicode:
@@ -73,7 +74,7 @@ def ngram(input, n=1, u_start=48, u_stop=123):
             output.append(' '.join(input[j:j+i]))
     return output
 
-
+'''
 def main():
     test_string = 'This is a Test oF the ngram method\n'
     print ngram(test_string, 3)
@@ -81,3 +82,4 @@ def main():
 #testing
 if __name__ == '__main__':
     main()
+'''

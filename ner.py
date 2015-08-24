@@ -62,21 +62,6 @@ def main():
 
     print (entity_names)
 
-
-    '''
-    for doc in doc_list:
-        chunked_text = NE.ne_chunking(doc)
-        entity_names = []
-        for tree in chunked_text:
-            entity_names.extend(NE.extract_entity_names(tree, 'NE'))
-            if not os.path.exists(os.path.join(root, 'namedentity')):
-                os.makedirs(os.path.join(root, 'namedentity'))
-            with open(os.path.join(root, 'namedentity', name), 'w') as o:
-                o.write('~'.join(entity_names))
-                print('processing: {}'.format(os.path.join(root, name)))
-            f.close()
-            o.close()
-    '''
 if __name__ == '__main__':
     start_time = time.time()
     main()
