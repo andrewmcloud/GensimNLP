@@ -9,7 +9,7 @@ def main():
     import clustering
     import docStats
 
-    '''
+
     print 'importing corpus'
     doc_list, file_dict, doc_dict = importCorpus.read_docs('/home/andrew/Desktop/Cyber_Corpus/TXT_CONVERT')
     #doc_list, file_dict, doc_dict = importCorpus.read_docs('test_corpus/')
@@ -19,24 +19,24 @@ def main():
 
     #tokenize text
     print 'tokenizing text\n'
-    texts = preProcess.tokenize_corpus(doc_list, min_df=0.02, max_df=0.8)
+    texts = preProcess.tokenize_corpus(doc_list, n=2, min_df=0.02, max_df=0.8)
 
     #build corpus and dictionary
     print 'building and saving corpus / dictionary\n'
     corpusTools.build_corpus(texts, corpus_filename='cyberCorpus.mm', dict_filename='cyberDict.dict')
-    '''
+
     #load corpus and dictionary
     print 'loading corpus / dictionary\n'
     corpus = corpusTools.load_corpus('corpus_dict/cyberCorpus.mm')
     dictionary = corpusTools.load_dict('corpus_dict/cyberDict.dict')
     doc_dict = importCorpus.load_objs('obj/', 'doc_dict.dict')
-    '''
+
     #build models
     print 'building and saving models\n'
     tfidf = models.build_tfidf(corpus, filename='cyberTFIDF.model')
     lsi = models.build_lsi(corpus, dictionary, num_topics=17, filename='cyberLSI.model')
     #lda = models.build_lda(corpus, dictionary, '', num_topics=5, filename='cyberLDA.model')
-    '''
+
 
     #load models
     print 'loading models\n'

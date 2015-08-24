@@ -60,7 +60,7 @@ def main():
 
     #tokenize text
     print 'tokenizing text'
-    texts = preProcess.tokenize_corpus(doc_list, min_df=0.1, max_df=0.8)
+    texts = preProcess.tokenize_corpus(doc_list, n=2, min_df=0.1, max_df=0.8)
 
     #build corpus and dictionary
     print 'building and saving corpus / dictionary'
@@ -70,8 +70,7 @@ def main():
     print 'loading corpus and dictionary'
     corpus = corpusTools.load_corpus('corpus_dict/corpus_test.mm')
     dictionary = corpusTools.load_dict('corpus_dict/dictionary_test.dict')
-    obj_list = importCorpus.load_objs('obj/', 'doc_dict_test.dict')
-    doc_dict = obj_list[0]
+    doc_dict = importCorpus.load_objs('obj/', 'doc_dict_test.dict')
 
     #loading doc_dict
     #print 'loading doc_dict'

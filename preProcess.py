@@ -4,10 +4,12 @@ from stopwords import stopwords
 from collections import defaultdict
 import string
 
-def tokenize_corpus(documents, min_df=0.1, max_df=0.9):
+def tokenize_corpus(documents, n=1, min_df=0.1, max_df=0.9):
 
-    texts = [[word for word in document.lower().strip().split() if word not in stopwords]
-             for document in documents]
+    #texts = [[word for word in document.lower().strip().split() if word not in stopwords]
+    #         for document in documents]
+
+    texts = [[word for word in ngram(document, n) if word not in stopwords] for document in documents]
 
     frequency = defaultdict(int)
 
@@ -71,14 +73,15 @@ def strip_docs(documents, unicode=True, i=64, j=123):
 
 def ngram(input, n=1):
     output = []
-    input = input.split()
-    for i in range(len(input)-n+1):
-        output.append(' '.join(input[i:i+n]))
+    input = input.lower().strip().split()
+    for i in range(1, n+1):
+        for j in range(len(input)-i+1):
+            output.append(' '.join(input[j:j+i]))
     return output
 '''
 def main():
-    test_string = 'this is a test of the ngram method'
-    print ngram(test_string, 2)
+    test_string = 'This is a Test oF the ngram method\n'
+    print ngram(test_string, 3)
 
 #testing
 if __name__ == '__main__':
