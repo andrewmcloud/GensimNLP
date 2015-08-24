@@ -9,10 +9,17 @@ def tokenize_corpus(documents, n=1, min_df=0.1, max_df=0.9):
     #tokenize documents to appropriate n-gram token length
     texts = [[word for word in ngram(document, n)] for document in documents]
 
+    n = len(documents)
+    return min_max_df(texts, n, min_df, max_df)
+
+
+def min_max_df(texts, n, min_df=0.1, max_df=0.9):
+    if min_df == 0 and max_df == 1:
+        return texts
+
     frequency = defaultdict(int)
     returnlist = []
 
-    n = len(documents)
     max_n = int(round(max_df * n))
     min_n = int(round(min_df * n))
 
@@ -65,6 +72,7 @@ def ngram(input, n=1, u_start=48, u_stop=123):
         for j in range(len(input)-i+1):
             output.append(' '.join(input[j:j+i]))
     return output
+
 
 def main():
     test_string = 'This is a Test oF the ngram method\n'
