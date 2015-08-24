@@ -68,3 +68,19 @@ def strip_docs(documents, unicode=True, i=64, j=123):
         # print stripped_doc
 
     return stripped_docs
+
+def ngram(input, n=1):
+    output = []
+    input = input.split()
+    for i in range(len(input)-n+1):
+        output.append(' '.join(input[i:i+n]))
+    return output
+'''
+def main():
+    test_string = 'this is a test of the ngram method'
+    print ngram(test_string, 2)
+
+#testing
+if __name__ == '__main__':
+    main()
+'''

@@ -7,10 +7,10 @@ import models
 import os
 from gensim import matutils
 from operator import itemgetter
-from numpy import bincount as np_bincount
+from numpy import bincount as np_bincount, where
 from fileTools import verify_filesave
 
-def get_term_stats(corpus, corpus_tfidf, dictionary, doc_dict, term_dict=None, writedir='stats/', filename='term_stats.txt'):
+def get_term_stats(corpus, corpus_tfidf, dictionary, doc_dict, term_list=None, writedir='stats/', filename='term_stats.txt'):
 
     # convert to sparse arrays
     data = matutils.corpus2csc(corpus)
@@ -36,21 +36,23 @@ def get_term_stats(corpus, corpus_tfidf, dictionary, doc_dict, term_dict=None, w
     docfreq = np_bincount(data.indices)
 
     f = open(os.path.join(writedir, verify_filesave(writedir, filename)), 'w')
-    f.write('Term,Count,TF-IDF,DF,Documents\n')
-
-    for i, word in enumerate(feature_names):
-        if term_dict == None:
+    if term_list == None:
+        f.write('Term,Count,TF-IDF,DF,Documents\n')
+        for i, word in enumerate(feature_names):
             f.write('{},{},{},{},{}\n'.format(word, count[i].item(0), tfidf[i].item(0), docfreq[i], doc_str[i]))
-        else:
-            if word in term_dict.keys():
-                f.write('{},{},{},{},{},{}\n'.format(word, term_dict[word], count[i].item(0), tfidf[i].item(0), docfreq[i], doc_str[i]))
+    else:
+        f.write('Term,Cluster,Count,TF-IDF,DF\n')
+        for word in term_list:
+            i = feature_names.index(word[0])
+            f.write('{},{},{},{},{}\n'.format(word[0], word[1], count[i].item(0), tfidf[i].item(0), docfreq[i]))
 
 
 import clustering
 #TESTING
 def main():
 
-    doc_list, file_dict, doc_dict = importCorpus.read_docs('test_corpus/')
+    doc_list, file_dict, doc_dict = importCorpus.read_docs('test_corpus/', doc_list_fn='doc_list_test.list',
+              doc_dict_fn='doc_dict_test.dict', file_dict_fn='file_dict_test.dict')
 
     #strips corpus of punctuation and unusual unicode characters
     print 'preprocessing text'
@@ -68,6 +70,8 @@ def main():
     print 'loading corpus and dictionary'
     corpus = corpusTools.load_corpus('corpus_dict/corpus_test.mm')
     dictionary = corpusTools.load_dict('corpus_dict/dictionary_test.dict')
+    obj_list = importCorpus.load_objs('obj/', 'doc_dict_test.dict')
+    doc_dict = obj_list[0]
 
     #loading doc_dict
     #print 'loading doc_dict'
@@ -92,7 +96,7 @@ def main():
 
     #get term stats
     print 'getting term stats'
-    get_term_stats(corpus, corpus_tfidf, dictionary, doc_dict, term_dict=term_list, filename='term_stats_test.txt')
+    get_term_stats(corpus, corpus_tfidf, dictionary, doc_dict, term_list=term_list, filename='term_stats_test.txt')
 
 
 if __name__ == '__main__':

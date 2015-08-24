@@ -24,6 +24,7 @@ def read_docs(readdir, doc_list_fn='doc_list.list',
                 file_dict[len(doc_list) - 1] = p
                 doc_dict[len(doc_list) - 1] = name
 
+    print type(doc_dict)
     save_obj(doc_list, doc_list_fn)
     save_obj(doc_dict, doc_dict_fn)
     save_obj(file_dict, file_dict_fn)
@@ -36,12 +37,15 @@ def save_obj(obj, filename, writedir='obj/'):
     pickle.dump(obj, f)
 
 def load_objs(readdir, *filenames):
-    objlist = []
-    for i in range(len(filenames)):
-        print filenames[i]
-        f = open(os.path.join(readdir, filenames[i]), 'r')
-        objlist.append(pickle.load(f))
-    return objlist
+    if len(filenames) == 1:
+        f = open(os.path.join(readdir, filenames[0]), 'r')
+        return pickle.load(f)
+    else:
+        objlist = []
+        for i in range(len(filenames)):
+            f = open(os.path.join(readdir, filenames[i]), 'r')
+            objlist.append(pickle.load(f))
+        return objlist
 
 #save_obj, load_obj unit testing
 '''

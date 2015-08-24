@@ -19,7 +19,7 @@ def main():
 
     #tokenize text
     print 'tokenizing text\n'
-    texts = preProcess.tokenize_corpus(doc_list, min_df=0.1, max_df=0.8)
+    texts = preProcess.tokenize_corpus(doc_list, min_df=0.02, max_df=0.8)
 
     #build corpus and dictionary
     print 'building and saving corpus / dictionary\n'
@@ -29,13 +29,14 @@ def main():
     print 'loading corpus / dictionary\n'
     corpus = corpusTools.load_corpus('corpus_dict/cyberCorpus.mm')
     dictionary = corpusTools.load_dict('corpus_dict/cyberDict.dict')
-
+    doc_dict = importCorpus.load_objs('obj/', 'doc_dict.dict')
+    '''
     #build models
     print 'building and saving models\n'
     tfidf = models.build_tfidf(corpus, filename='cyberTFIDF.model')
     lsi = models.build_lsi(corpus, dictionary, num_topics=17, filename='cyberLSI.model')
     #lda = models.build_lda(corpus, dictionary, '', num_topics=5, filename='cyberLDA.model')
-
+    '''
 
     #load models
     print 'loading models\n'
@@ -51,15 +52,17 @@ def main():
 
     #clustering
     print 'clustering\n'
-    data_lsi, clusters, centers = clustering.kmeans(corpus_lsi, 22)
-    data, clusters, centers = clustering.kmeans(corpus_tfidf, 22)
+    data_lsi, clusters, centers = clustering.kmeans(corpus_lsi, 16)
+    data, clusters, centers = clustering.kmeans(corpus_tfidf, 16)
 
     #plotting clusters
     print 'plotting clusters\n'
     clustering.plot_2d_clusters(data_lsi, clusters, centers)
     term_list = clustering.cluster_terms(data, clusters, centers, dictionary)
 
-    docStats.get_term_stats(corpus, corpus_tfidf, dictionary, term_list, term_dict=term_list,
+    #getting term stats
+    print 'getting term stats\n'
+    docStats.get_term_stats(corpus, corpus_tfidf, dictionary, doc_dict, term_list=term_list,
                             writedir='stats', filename='cyberTERM_STATS.csv')
     '''
     print 'determining clusters\n'
