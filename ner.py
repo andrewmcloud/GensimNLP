@@ -2,9 +2,6 @@
 __author__ = 'andrew'
 
 import nltk
-import os
-import time
-import importCorpus
 
 readdir = '/home/amcloud/Desktop/Files/Corpora/TestCorpus_domain'
 
@@ -46,12 +43,16 @@ class NamedEntity(object):
     def ne_chunking(self, text):
         return nltk.ne_chunk_sents(self.preprocess(text), binary=False)
 
-
+########################################################################################################################
+import time
+import importCorpus
 def main():
 
     NE = NamedEntity()
-    doc_list, file_dict, doc_dict = importCorpus.read_docs('test_corpus/', doc_list_fn='doc_list_test.list',
-                                                           doc_dict_fn='doc_dict_test.dict', file_dict_fn='file_dict_test.dict')
+    doc_list, file_dict, doc_dict = importCorpus.read_docs('test_corpus/',
+                                                           doc_list_fn='doc_list_test.list',
+                                                           doc_dict_fn='doc_dict_test.dict',
+                                                           file_dict_fn='file_dict_test.dict')
     print(doc_dict[1])
     doc = doc_list[1]
     chunked_text = NE.ne_chunking(doc)

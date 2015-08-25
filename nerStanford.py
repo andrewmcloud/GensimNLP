@@ -35,6 +35,7 @@ def stanfordNamedEntity(doc_list, min_df=0.2, max_df=.8):
 
     return entity_terms, entity_tuples
 
+########################################################################################################################
 
 import time
 import models
@@ -44,10 +45,11 @@ import preProcess
 import docStats
 
 def main():
-    doc_list, file_dict, doc_dict = importCorpus.read_docs('test_corpus/', doc_list_fn='doc_list_test.list',
-                                                           doc_dict_fn='doc_dict_test.dict',
-                                                           file_dict_fn='file_dict_test.dict')
-    entity_terms, entity_tuples = stanfordNamedEntity(doc_list, min_df=0.1, max_df=0.9)
+    doc_list, file_dict, doc_dict = importCorpus.read_docs('/home/andrew/Desktop/Cyber_Corpus/TXT_CONVERT',
+                                                           doc_list_fn='doc_list_ner.list',
+                                                           doc_dict_fn='doc_dict_ner.dict',
+                                                           file_dict_fn='file_dict_ner.dict')
+    entity_terms, entity_tuples = stanfordNamedEntity(doc_list, min_df=0.02, max_df=0.8)
 
     #build corpus and dictionary
     print 'building and saving corpus / dictionary'
@@ -57,7 +59,7 @@ def main():
     print 'loading corpus and dictionary'
     entity_corpus = corpusTools.load_corpus('corpus_dict/NE_corpus_test.mm')
     entity_dictionary = corpusTools.load_dict('corpus_dict/NE_dictionary_test.dict')
-    doc_dict = importCorpus.load_objs('obj/', 'doc_dict_test.dict')
+    doc_dict = importCorpus.load_objs('obj/', 'cyber_doc_dict_n3.dict')
 
     #build models
     print 'building and saving models'

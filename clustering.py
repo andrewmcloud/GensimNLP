@@ -24,6 +24,13 @@ def kmeans(data, k=3):
     centers = km.cluster_centers_
     return data, clusters, centers
 
+def get_docs_by_cluster(clusters, doc_dict, writedir='clusters/', filename='docs_by_cluster'):
+    k = max(clusters) + 1
+    f = open(os.path.join(writedir, verify_filesave(writedir, filename)), 'w')
+    for c in range(0, k):
+        inds = where(clusters == c)[0]
+        f.write('{}~{}\n'.format(c, '~'.join([doc_dict[x] for x in inds])))
+
 
 def plot_2d_clusters(data, clusters, centers, writedir='clusters/', filename='clusters.png'):
     k = len(centers)

@@ -6,7 +6,8 @@ from operator import itemgetter
 from numpy import bincount as np_bincount, where
 from fileTools import verify_filesave
 
-def get_term_stats(corpus, corpus_tfidf, dictionary, doc_dict, term_list=None, writedir='stats/', filename='term_stats.txt'):
+def get_term_stats(corpus, corpus_tfidf, dictionary, doc_dict, term_list=None,
+                   writedir='stats/', filename='term_stats.txt', cluster_docs_filename='cluster_docs.txt'):
 
     # convert to sparse arrays
     data = matutils.corpus2csc(corpus)
@@ -37,13 +38,16 @@ def get_term_stats(corpus, corpus_tfidf, dictionary, doc_dict, term_list=None, w
         for i, word in enumerate(feature_names):
             f.write('{}~{}~{}~{}~{}\n'.format(word, count[i].item(0), tfidf[i].item(0), docfreq[i], doc_str[i]))
     else:
-        f.write('Term~Cluster~Count~TF-IDF~DF\n')
+        f.write('Term~Cluster~Count~TF-IDF~DF~Documents\n')
         for word in term_list:
             i = feature_names.index(word[0])
-            f.write('{}~{}~{}~{}~{}\n'.format(word[0], word[1], count[i].item(0), tfidf[i].item(0), docfreq[i]))
+            f.write('{}~{}~{}~{}~{}~{}\n'.format(word[0], word[1], count[i].item(0), tfidf[i].item(0),
+                                                 docfreq[i], doc_str[i]))
+    f.close()
 
 
-def get_entity_stats(corpus, corpus_tfidf, dictionary, doc_dict, ne_tuple_lists=None, writedir='stats/', filename='term_stats.txt'):
+def get_entity_stats(corpus, corpus_tfidf, dictionary, doc_dict, ne_tuple_lists=None,
+                     writedir='stats/', filename='term_stats.txt'):
 
     # convert to sparse arrays
     data = matutils.corpus2csc(corpus)
@@ -81,9 +85,10 @@ def get_entity_stats(corpus, corpus_tfidf, dictionary, doc_dict, ne_tuple_lists=
                 if ne_tuple[0] not in term_check:
                     term_check.append(ne_tuple[0])
                     i = feature_names.index(ne_tuple[0])
-                    f.write('{}~{}~{}~{}~{}\n'.format(ne_tuple[0], ne_tuple[1], count[i].item(0), tfidf[i].item(0), docfreq[i]))
+                    f.write('{}~{}~{}~{}~{}\n'.format(ne_tuple[0], ne_tuple[1], count[i].item(0),
+                                                      tfidf[i].item(0), docfreq[i]))
 
-
+########################################################################################################################
 import clustering
 import importCorpus
 import preProcess
@@ -100,7 +105,7 @@ def main():
     #print 'preprocessing text'
     # doc_list = preProcess.strip_docs(doc_list, unicode=False)
 
-    #tokenize text
+    #preprocessing and tokenize text
     print 'preprocessing & tokenizing text'
     texts = preProcess.tokenize_corpus(doc_list, n=3, min_df=0.1, max_df=0.8)
 
