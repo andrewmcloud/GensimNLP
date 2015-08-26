@@ -4,6 +4,14 @@ import pickle
 import os
 from fileTools import verify_filesave
 
+class StreamingDocs(object):
+    def __init__(self, filename):
+        self.filename = filename
+
+    def __iter__(self):
+        for line in open(self.filename):
+            yield line
+
 def read_docs(readdir, doc_list_fn='doc_list.list',
               doc_dict_fn='doc_dict.dict', file_dict_fn='file_dict.dict'):
 
@@ -20,7 +28,7 @@ def read_docs(readdir, doc_list_fn='doc_list.list',
                 continue
             else:
                 f = open(p, 'r')
-                doc_list.append(f.read())
+                doc_list.append(f.read().replace('\n', ' '))
                 file_dict[len(doc_list) - 1] = p
                 doc_dict[len(doc_list) - 1] = name
 
@@ -28,6 +36,10 @@ def read_docs(readdir, doc_list_fn='doc_list.list',
     save_obj(doc_list, doc_list_fn)
     save_obj(doc_dict, doc_dict_fn)
     save_obj(file_dict, file_dict_fn)
+
+    #####saving for NER document streaming#####
+    f = open('obj/doc_list.txt', 'w')
+    f.write('\n'.join(doc_list))
 
     return doc_list, file_dict, doc_dict
 
