@@ -53,6 +53,31 @@ def comma_exclude(csv_exclude_file, folder_path):
         print 'excludepath: {}'.format(exclude_path)
         sh.move(file_path, exclude_path)
 
+def check_for_numbers(documents, max_num_percent=0.3):
+    doc_check = []
+    count = 0
+    for j, document in enumerate(documents):
+        if j%50 == 0:
+            print 'Processing Document {}'.format(j)
+            print 'Count = {}'.format(count)
+        n = float(len(document))
+        i = 0.0
+        for word in document:
+            try:
+                x = float(word)
+            except:
+                ValueError()
+                i += 1.0
+
+        # print('{}'.format((n-i)/n))
+        if (n-i)/n > max_num_percent:
+            doc_check.append(False)
+            count += 1
+        else:
+            doc_check.append(True)
+
+    return doc_check, count
+
 '''
 #MAIN
 import validatePDF

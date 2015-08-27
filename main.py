@@ -9,7 +9,7 @@ import docStats
 import time
 
 def main():
-    '''
+
     #######################################IMPORTING AND BUILDING CORPUS################################################
     print 'importing corpus'
     doc_list, file_dict, doc_dict = importCorpus.read_docs('/home/andrew/Desktop/Cyber_Corpus/TXT_CONVERT',
@@ -20,12 +20,12 @@ def main():
     #strips corpus of punctuation and unusual unicode characters
     #tokenizes text
     print 'stripping & tokenizing text'
-    texts = preProcess.tokenize_corpus(doc_list, n=3, min_df=0.02, max_df=0.8, u_start=64, u_stop=123)
+    texts = preProcess.tokenize_corpus(doc_list, n=3, min_df=0.003, max_df=0.7, u_start=64, u_stop=123)
 
     #build corpus and dictionary
     print 'building and saving corpus / dictionary'
     corpusTools.build_corpus(texts, corpus_filename='cyberCorpus.mm', dict_filename='cyberDict.dict')
-    '''
+
     #############################################LOADING CORPUS#########################################################
     #load corpus and dictionary
     print 'loading corpus / dictionary'

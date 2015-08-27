@@ -4,8 +4,15 @@ __author__ = 'andrew'
 import os
 from itertools import groupby
 from nltk.tag.stanford import StanfordNERTagger
+from nltk.internals import config_java
+from fileTools import check_for_numbers
+
+config_java(options='-Xmx4096m -Xms4096m')
 st = StanfordNERTagger('/usr/share/stanford-ner/classifiers/english.muc.7class.distsim.crf.ser.gz',
                        '/usr/share/stanford-ner/stanford-ner.jar')
+
+#st = StanfordNERTagger('/usr/share/stanford-ner/classifiers/english.all.3class.distsim.crf.ser.gz',
+#                       '/usr/share/stanford-ner/stanford-ner.jar')
 
 def stanfordNER(doc_list, min_df=0.2, max_df=.8):
     n = len(doc_list)
@@ -47,14 +54,16 @@ def stanfordNERSingleDoc(doc):
             chunked_terms.append(chunk)
     return chunked_terms, chunked_tuples
 
-def stanfordNERStreaming(readdir='obj/', filename='doc_list.txt', min_df=0.2, max_df=0.8):
+def stanfordNERStreaming(readdir='obj/', filename='doc_list.txt', min_df=0.003, max_df=0.7):
     streaming = importCorpus.StreamingDocs(os.path.join(readdir, filename))
     entity_terms = []
     entity_tuples_temp = []
     n = 0
     for doc in streaming:
-        chunked_terms, chunked_tuples = stanfordNERSingleDoc(doc)
         n += 1
+        if n % 1 == 0:
+            print 'Processing Document: {}'.format(n)
+        chunked_terms, chunked_tuples = stanfordNERSingleDoc(doc)
         entity_terms.append(chunked_terms)
         entity_tuples_temp.append(chunked_tuples)
 
@@ -78,11 +87,23 @@ import preProcess
 import docStats
 
 def main():
-    doc_list, file_dict, doc_dict = importCorpus.read_docs('/home/andrew/Desktop/Cyber_Corpus/TXT_CONVERT',
+    doc_list, file_dict, doc_dict = importCorpus.read_docs('/home/andrew/Desktop/Cyber_Corpus/TXT_CONVERT/DOC_TXT',
                                                            doc_list_fn='doc_list_ner.list',
                                                            doc_dict_fn='doc_dict_ner.dict',
                                                            file_dict_fn='file_dict_ner.dict')
+    '''
+    #doc_check, count = check_for_numbers(doc_list)
+    #print(count)
 
+    #for i, check in enumerate(doc_check):
+    #    if check == False:
+    #        print file_dict[i]
+
+
+
+    for i in range(3550, 3600):
+        print(doc_dict[i])
+    '''
     entity_terms, entity_tuples = stanfordNERStreaming()
     print(entity_terms)
 
