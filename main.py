@@ -9,7 +9,7 @@ import docStats
 import time
 
 def main():
-
+    '''
     #######################################IMPORTING AND BUILDING CORPUS################################################
     print 'importing corpus'
     doc_list, file_dict, doc_dict = importCorpus.read_docs('/home/andrew/Desktop/Cyber_Corpus/TXT_CONVERT',
@@ -25,7 +25,7 @@ def main():
     #build corpus and dictionary
     print 'building and saving corpus / dictionary'
     corpusTools.build_corpus(texts, corpus_filename='cyberCorpus.mm', dict_filename='cyberDict.dict')
-
+    '''
     #############################################LOADING CORPUS#########################################################
     #load corpus and dictionary
     print 'loading corpus / dictionary'

@@ -72,7 +72,7 @@ def cluster_terms(data, clusters, centers, dictionary, writedir='clusters/', fil
         xnotinds = data[notinds, :]
         cluster_words = xinds.mean(axis=0) - xnotinds.mean(axis=0)
         s = sorted(tuple(zip(feature_names, cluster_words.transpose())), key=lambda q: q[1], reverse=True)
-        for i in range(0, 25):
+        for i in range(0, 100):
             f.write('{},{},{},{}\n'.format(c, s[i][0], s[i][1].item(0), len(inds)))
             #term_list.append(s[i][0])
             term_list.append((s[i][0],c))

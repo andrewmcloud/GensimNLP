@@ -33,6 +33,8 @@ def stanfordNER(doc_list, min_df=0.2, max_df=.8):
         entity_tuples_temp.append(chunked_tuples)
 
     entity_terms = preProcess.min_max_df(entity_terms, n, min_df, max_df)
+
+
     entity_tuples = []
     for i, tuple_list in enumerate(entity_tuples_temp):
         entity_tuples.append([t for t in tuple_list if t[0] in entity_terms[i]])
@@ -68,6 +70,7 @@ def stanfordNERStreaming(readdir='obj/', filename='doc_list.txt', min_df=0.003, 
         entity_tuples_temp.append(chunked_tuples)
 
     entity_terms = preProcess.min_max_df(entity_terms, n, min_df, max_df)
+
     entity_tuples = []
     for i, tuple_list in enumerate(entity_tuples_temp):
         entity_tuples.append([t for t in tuple_list if t[0] in entity_terms[i]])
@@ -87,40 +90,31 @@ import preProcess
 import docStats
 
 def main():
-    doc_list, file_dict, doc_dict = importCorpus.read_docs('/home/andrew/Desktop/Cyber_Corpus/TXT_CONVERT/DOC_TXT',
+    '''
+    doc_list, file_dict, doc_dict = importCorpus.read_docs('/home/andrew/Desktop/Cyber_Corpus/TXT_CONVERT',
                                                            doc_list_fn='doc_list_ner.list',
                                                            doc_dict_fn='doc_dict_ner.dict',
                                                            file_dict_fn='file_dict_ner.dict')
-    '''
-    #doc_check, count = check_for_numbers(doc_list)
-    #print(count)
 
-    #for i, check in enumerate(doc_check):
-    #    if check == False:
-    #        print file_dict[i]
-
-
-
-    for i in range(3550, 3600):
-        print(doc_dict[i])
-    '''
+    #building entity_terms and entity_tuples
     entity_terms, entity_tuples = stanfordNERStreaming()
-    print(entity_terms)
 
     #build corpus and dictionary
     print 'building and saving corpus / dictionary'
     corpusTools.build_corpus(entity_terms, corpus_filename='NE_corpus.mm', dict_filename='NE_dictionary.dict')
-
+    '''
     #loading corpus and dictionary
     print 'loading corpus and dictionary'
     entity_corpus = corpusTools.load_corpus('corpus_dict/NE_corpus.mm')
     entity_dictionary = corpusTools.load_dict('corpus_dict/NE_dictionary.dict')
     doc_dict = importCorpus.load_objs('obj/', 'cyber_doc_dict_n3.dict')
+    entity_tuples = importCorpus.load_objs('obj/', 'NE_entity_tuples.list')
 
+    '''
     #build models
     print 'building and saving models'
     entity_tfidf = models.build_tfidf(entity_corpus, filename='NE_model.tfidf')
-
+    '''
     #load models
     print 'loading models'
     entity_tfidf = models.load_model('models/NE_model.tfidf')

@@ -80,13 +80,16 @@ def get_entity_stats(corpus, corpus_tfidf, dictionary, doc_dict, ne_tuple_lists=
     else:
         f.write('Term~NE Type~Count~TF-IDF~DF\n')
         term_check = []
+
         for ne_tuple_list in ne_tuple_lists:
             for ne_tuple in ne_tuple_list:
                 if ne_tuple[0] not in term_check:
                     term_check.append(ne_tuple[0])
+                    print ne_tuple
                     i = feature_names.index(ne_tuple[0])
-                    f.write('{}~{}~{}~{}~{}\n'.format(ne_tuple[0], ne_tuple[1], count[i].item(0),
-                                                      tfidf[i].item(0), docfreq[i]))
+                    f.write('{}~{}~{}~{}~{}\n'.format(ne_tuple[0].encode('utf-8', 'ignore'), ne_tuple[1], count[i].item(0),
+                                                              tfidf[i].item(0), docfreq[i]))
+
 
 ########################################################################################################################
 import clustering
