@@ -74,46 +74,49 @@ def cyber_corpus(NUM_TOPICS):
 
 
 def cyber_corpus_NE():
-
+    '''
     doc_list, file_dict, doc_dict = importCorpus.read_docs('/home/andrew/Desktop/Cyber_Corpus/TXT_CONVERT',
-                                                           doc_list_fn='doc_list_cyber_ner_3_100.list',
-                                                           doc_dict_fn='doc_dict_cyber_ner_3_100.dict',
-                                                           file_dict_fn='file_dict_cyber_ner_3_100.dict')
+                                                           doc_list_fn='NER_Cyber_doc_list.list',
+                                                           doc_dict_fn='NER_Cyber_doc_dict.dict',
+                                                           file_dict_fn='NER_Cyber_file_dict.dict')
 
     #building entity_terms and entity_tuples
-    entity_terms, entity_tuples = nerStanford.stanfordNERStreaming(min_df=.0005397625045, max_df=.01799208348327,
-                                                       entity_terms_fn='NE_entity_terms_cyber_3_100.list',
-                                                       entity_tuples_fn='NE_entity_tuples_cyber_3_100.list')
+    entity_terms, entity_tuples = nerStanford.stanfordNERStreaming(entity_terms_fn='NER_Cyber_entity_terms.list',
+                                                                   entity_tuples_fn='NER_Cyber_entity_tuples.list')
 
     #build corpus and dictionary
     print 'building and saving corpus / dictionary'
-    corpusTools.build_corpus(entity_terms, corpus_filename='NE_cyber_corpus_3_100.mm',
-                             dict_filename='NE_cyber_dictionary_3_100.dict')
-
+    corpusTools.build_corpus(entity_terms, corpus_filename='NER_Cyber_corpus.mm',
+                             dict_filename='NER_Cyber_dictionary.dict')
+    '''
     #loading corpus and dictionary
     print 'loading corpus and dictionary'
-    entity_corpus = corpusTools.load_corpus('corpus_dict/NE_cyber_corpus_3_100.mm')
-    entity_dictionary = corpusTools.load_dict('corpus_dict/NE_cyber_dictionary_3_100.dict')
-    doc_dict = importCorpus.load_objs('obj/', 'doc_dict_cyber_ner_3_100.dict')
-    entity_tuples = importCorpus.load_objs('obj/', 'NE_entity_tuples_cyber_3_100.list')
-    entity_list = importCorpus.load_objs('obj/', 'NE_entity_terms_cyber_3_100.list')
-
+    entity_corpus = corpusTools.load_corpus('corpus_dict/NER_Cyber_corpus.mm')
+    entity_dictionary = corpusTools.load_dict('corpus_dict/NER_Cyber_dictionary.dict')
+    doc_dict = importCorpus.load_objs('obj/', 'NER_Cyber_doc_dict.dict')
+    entity_tuples = importCorpus.load_objs('obj/', 'NER_Cyber_entity_tuples.list')
+    entity_list = importCorpus.load_objs('obj/', 'NER_Cyber_entity_terms.list')
+    '''
     #build models
     print 'building and saving models'
-    models.build_tfidf(entity_corpus, filename='NE_model_cyber_3_100.tfidf')
-
+    models.build_tfidf(entity_corpus, filename='NER_Cyber_model.tfidf')
+    '''
     #load models
     print 'loading models'
-    entity_tfidf = models.load_model('models/NE_model_cyber_3_100.tfidf')
+    entity_tfidf = models.load_model('models/NER_Cyber_model.tfidf')
 
     print 'building transforms'
     entity_corpus_tfidf = models.model_transform(entity_corpus, entity_tfidf)
+
+    #setting min max NE occurence
+    entity_terms, entity_tuples = nerStanford.NE_min_max(entity_list, entity_tuples, len(doc_dict),
+                                                         min_df=0.0009, max_df=.009)
 
     #getting term stats
     print 'getting term stats'
     #building ne_list from entity_list, can also load a file for partial document list
     ne_list = []
-    [[ne_list.append(y) for y in entity] for entity in entity_list]
+    [[ne_list.append(y) for y in entity] for entity in entity_terms]
 
     docStats.get_entity_stats(entity_corpus, entity_corpus_tfidf, entity_dictionary, doc_dict,
                               entity_tuples, ne_list=ne_list, writedir='stats',
@@ -204,7 +207,7 @@ def heatherNER():
     entity_corpus = corpusTools.load_corpus('corpus_dict/heatherNE_corpus.mm')
     entity_dictionary = corpusTools.load_dict('corpus_dict/heatherNE_dictionary.dict')
     doc_dict = importCorpus.load_objs('obj/', 'heather_doc_dict_n3.dict')
-    entity_tuples_all = importCorpus.load_objs('obj/', 'heather_NE_entity_tuples_all.list')
+    entity_tuples = importCorpus.load_objs('obj/', 'heather_NE_entity_tuples_all.list')
     entity_list = importCorpus.load_objs('obj/', 'heather_NE_entity_terms.list')
     '''
     #build models
@@ -219,10 +222,14 @@ def heatherNER():
     entity_corpus_tfidf = models.model_transform(entity_corpus, entity_tfidf)
 
     #reading ne_list from file
-    with open('/home/andrew/Desktop/ne_list.txt', 'r') as f:
-        ne_list = f.read().strip().split('\n')
+    #with open('/home/andrew/Desktop/heather_names_list', 'r') as f:
+    #    ne_list = f.read().strip().split('\n')
 
-    print ne_list
+    #print ne_list
+
+    #setting min max NE occurence
+    entity_terms, entity_tuples = nerStanford.NE_min_max(entity_list, entity_tuples, len(doc_dict),
+                                                         min_df=0.07, max_df=.3)
 
     #getting term stats
     print 'getting term stats'
@@ -230,7 +237,7 @@ def heatherNER():
     [[ne_list.append(y) for y in entity] for entity in entity_list]
 
     docStats.get_entity_stats(entity_corpus, entity_corpus_tfidf, entity_dictionary, doc_dict,
-                              entity_tuples_all, ne_list=ne_list, writedir='stats', filename='heather_test.csv')
+                              entity_tuples, ne_list=ne_list, writedir='stats', filename='heather_test.csv')
 
 
 def main():

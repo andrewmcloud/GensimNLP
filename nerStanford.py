@@ -20,7 +20,7 @@ def stanfordNERSingleDoc(doc):
             chunked_terms.append(chunk)
     return chunked_terms, chunked_tuples
 
-def stanfordNERStreaming(readdir='obj/', filename='doc_list.txt', min_df=0.003, max_df=0.7,
+def stanfordNERStreaming(readdir='obj/', filename='doc_list.txt',
                          entity_terms_fn='NE_entity_terms.list',
                          entity_tuples_fn='NE_entity_tuples_all.list'):
     streaming = importCorpus.StreamingDocs(os.path.join(readdir, filename))
@@ -35,11 +35,19 @@ def stanfordNERStreaming(readdir='obj/', filename='doc_list.txt', min_df=0.003, 
         entity_terms.append(chunked_terms)
         entity_tuples.append(chunked_tuples)
 
-    entity_terms = preProcess.min_max_df(entity_terms, n, min_df, max_df)
+    #entity_terms = preProcess.min_max_df(entity_terms, n, min_df, max_df)
 
     importCorpus.save_obj(entity_terms, entity_terms_fn)
     importCorpus.save_obj(entity_tuples, entity_tuples_fn)
 
+    return entity_terms, entity_tuples
+
+def NE_min_max(entity_terms, entity_tuples_temp, n, min_df, max_df):
+
+    entity_terms = preProcess.min_max_df(entity_terms, n, min_df, max_df)
+    entity_tuples = []
+    for i, tuple_list in enumerate(entity_tuples_temp):
+        entity_tuples.append([t for t in tuple_list if t[0] in entity_terms[i]])
     return entity_terms, entity_tuples
 
 ################################################TESTING#################################################################
