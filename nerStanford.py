@@ -1,52 +1,16 @@
-#from __future__ import print_function
 __author__ = 'andrew'
 
 import os
 from itertools import groupby
 from nltk.tag.stanford import StanfordNERTagger
 from nltk.internals import config_java
-from fileTools import check_for_numbers
 
 config_java(options='-Xmx4096m -Xms4096m')
 st = StanfordNERTagger('/usr/share/stanford-ner/classifiers/english.muc.7class.distsim.crf.ser.gz',
                        '/usr/share/stanford-ner/stanford-ner.jar')
 
-#st = StanfordNERTagger('/usr/share/stanford-ner/classifiers/english.all.3class.distsim.crf.ser.gz',
-#                       '/usr/share/stanford-ner/stanford-ner.jar')
-'''
-def stanfordNER(doc_list, min_df=0.2, max_df=.8):
-    n = len(doc_list)
-    entity_terms = []
-    entity_tuples_temp = []
-    for doc in doc_list:
-        doc_entities = st.tag(doc.split())
-
-        chunked_tuples = []
-        chunked_terms = []
-        for tag, chunk in groupby(doc_entities, lambda x: x[1]):
-            if tag != 'O':
-                chunk = ' '.join(w for (w,t) in chunk)
-                chunked_tuples.append((chunk, tag))
-                chunked_terms.append(chunk)
-
-        entity_terms.append(chunked_terms)
-        entity_tuples_temp.append(chunked_tuples)
-
-    entity_terms = preProcess.min_max_df(entity_terms, n, min_df, max_df)
-
-
-    entity_tuples = []
-    for i, tuple_list in enumerate(entity_tuples_temp):
-        entity_tuples.append([t for t in tuple_list if t[0] in entity_terms[i]])
-
-    importCorpus.save_obj(entity_terms, 'NE_entity_terms.list')
-    importCorpus.save_obj(entity_tuples, 'NE_entity_tuples.list')
-
-    return entity_terms, entity_tuples
-'''
 def stanfordNERSingleDoc(doc):
     doc_entities = st.tag(doc.split())
-
     chunked_tuples = []
     chunked_terms = []
     for tag, chunk in groupby(doc_entities, lambda x: x[1]):
@@ -57,10 +21,11 @@ def stanfordNERSingleDoc(doc):
     return chunked_terms, chunked_tuples
 
 def stanfordNERStreaming(readdir='obj/', filename='doc_list.txt', min_df=0.003, max_df=0.7,
-                         entity_terms_fn='NE_entity_terms.list', entity_tuples_fn='NE_entity_tuples.list'):
+                         entity_terms_fn='NE_entity_terms.list',
+                         entity_tuples_fn='NE_entity_tuples_all.list'):
     streaming = importCorpus.StreamingDocs(os.path.join(readdir, filename))
     entity_terms = []
-    entity_tuples_temp = []
+    entity_tuples = []
     n = 0
     for doc in streaming:
         n += 1
@@ -68,21 +33,16 @@ def stanfordNERStreaming(readdir='obj/', filename='doc_list.txt', min_df=0.003, 
             print 'Processing Document: {}'.format(n)
         chunked_terms, chunked_tuples = stanfordNERSingleDoc(doc)
         entity_terms.append(chunked_terms)
-        entity_tuples_temp.append(chunked_tuples)
+        entity_tuples.append(chunked_tuples)
 
     entity_terms = preProcess.min_max_df(entity_terms, n, min_df, max_df)
 
-    entity_tuples = []
-    for i, tuple_list in enumerate(entity_tuples_temp):
-        entity_tuples.append([t for t in tuple_list if t[0] in entity_terms[i]])
-
     importCorpus.save_obj(entity_terms, entity_terms_fn)
     importCorpus.save_obj(entity_tuples, entity_tuples_fn)
-    importCorpus.save_obj(entity_tuples_temp, 'heather_NE_entity_tuples_temp.list')
 
-    return entity_terms, entity_tuples, entity_tuples_temp
+    return entity_terms, entity_tuples
 
-########################################################################################################################
+################################################TESTING#################################################################
 
 import time
 import models

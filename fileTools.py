@@ -28,12 +28,10 @@ def verify_filesave(writedir, filename):
                 overwrite = True
             else:
                 print('Please provide a y or an n')
-    # print filename
     return filename
 
 
 def comma_exclude(csv_exclude_file, folder_path):
-    count = 0
     #Ensure DEV_DIR exists
     if not os.path.exists(os.path.join(folder_path, 'excluded')):
         os.makedirs(os.path.join(folder_path, 'excluded'))
@@ -69,7 +67,6 @@ def check_for_numbers(documents, max_num_percent=0.3):
                 ValueError()
                 i += 1.0
 
-        # print('{}'.format((n-i)/n))
         if (n-i)/n > max_num_percent:
             doc_check.append(False)
             count += 1
@@ -77,18 +74,3 @@ def check_for_numbers(documents, max_num_percent=0.3):
             doc_check.append(True)
 
     return doc_check, count
-
-'''
-#MAIN
-import validatePDF
-def main():
-    #comma_exclude(*validatePDF.validate_pdf(readdir='/home/andrew/Desktop/test_corpus,
-    #                                        writedir='/home/andrew/Desktop', per_dict_words=.80, unicode=False))
-
-    comma_exclude('/home/andrew/Desktop/Cyber_Corpus/TXTexclude70.csv', '/home/andrew/Desktop/Cyber_Corpus/TXT')
-
-    #validatePDF.validate_pdf(readdir='/home/andrew/Desktop/Cyber_Corpus/TXT',
-    #                         writedir='/home/andrew/Desktop/Cyber_Corpus', per_dict_words=.70, unicode=True)
-if __name__ == '__main__':
-    main()
-'''

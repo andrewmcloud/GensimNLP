@@ -72,14 +72,3 @@ def ngram(input, n=1, u_start=48, u_stop=123):
         for j in range(len(input)-i+1):
             output.append(' '.join(input[j:j+i]))
     return output
-
-########################################################################################################################
-'''
-def main():
-    test_string = 'This is a Test oF the ngram method\n'
-    print ngram(test_string, 3)
-
-#testing
-if __name__ == '__main__':
-    main()
-'''

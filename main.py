@@ -13,7 +13,7 @@ import time
 #Cyber Corpus main()
 def cyber_corpus(NUM_TOPICS):
     '''
-    #######################################IMPORTING AND BUILDING CORPUS################################################
+    #############################################IMPORTING AND BUILDING CORPUS##########################################
     print 'importing corpus'
     doc_list, file_dict, doc_dict = importCorpus.read_docs('/home/andrew/Desktop/Cyber_Corpus/TXT_CONVERT',
                                                            doc_dict_fn='cyber_doc_dict.dict',
@@ -71,6 +71,53 @@ def cyber_corpus(NUM_TOPICS):
 
     #print 'determining clusters\n'
     #dist = clustering.determine_clusters(corpus_tfidf, num_executions=30)
+
+
+def cyber_corpus_NE():
+
+    doc_list, file_dict, doc_dict = importCorpus.read_docs('/home/andrew/Desktop/Cyber_Corpus/TXT_CONVERT',
+                                                           doc_list_fn='doc_list_cyber_ner_3_100.list',
+                                                           doc_dict_fn='doc_dict_cyber_ner_3_100.dict',
+                                                           file_dict_fn='file_dict_cyber_ner_3_100.dict')
+
+    #building entity_terms and entity_tuples
+    entity_terms, entity_tuples = nerStanford.stanfordNERStreaming(min_df=.0005397625045, max_df=.01799208348327,
+                                                       entity_terms_fn='NE_entity_terms_cyber_3_100.list',
+                                                       entity_tuples_fn='NE_entity_tuples_cyber_3_100.list')
+
+    #build corpus and dictionary
+    print 'building and saving corpus / dictionary'
+    corpusTools.build_corpus(entity_terms, corpus_filename='NE_cyber_corpus_3_100.mm',
+                             dict_filename='NE_cyber_dictionary_3_100.dict')
+
+    #loading corpus and dictionary
+    print 'loading corpus and dictionary'
+    entity_corpus = corpusTools.load_corpus('corpus_dict/NE_cyber_corpus_3_100.mm')
+    entity_dictionary = corpusTools.load_dict('corpus_dict/NE_cyber_dictionary_3_100.dict')
+    doc_dict = importCorpus.load_objs('obj/', 'doc_dict_cyber_ner_3_100.dict')
+    entity_tuples = importCorpus.load_objs('obj/', 'NE_entity_tuples_cyber_3_100.list')
+    entity_list = importCorpus.load_objs('obj/', 'NE_entity_terms_cyber_3_100.list')
+
+    #build models
+    print 'building and saving models'
+    models.build_tfidf(entity_corpus, filename='NE_model_cyber_3_100.tfidf')
+
+    #load models
+    print 'loading models'
+    entity_tfidf = models.load_model('models/NE_model_cyber_3_100.tfidf')
+
+    print 'building transforms'
+    entity_corpus_tfidf = models.model_transform(entity_corpus, entity_tfidf)
+
+    #getting term stats
+    print 'getting term stats'
+    #building ne_list from entity_list, can also load a file for partial document list
+    ne_list = []
+    [[ne_list.append(y) for y in entity] for entity in entity_list]
+
+    docStats.get_entity_stats(entity_corpus, entity_corpus_tfidf, entity_dictionary, doc_dict,
+                              entity_tuples, ne_list=ne_list, writedir='stats',
+                              filename='NE_cyber_doc_stats_3_100.csv')
 
 #Cyber Corpus main()
 def heather_corpus(NUM_TOPICS):
@@ -138,16 +185,15 @@ def heather_corpus(NUM_TOPICS):
 
 def heatherNER():
     '''
-    doc_list, file_dict, doc_dict = importCorpus.read_docs('/home/andrew/Desktop/Cyber_Corpus/TXT_CONVERT',
+    doc_list, file_dict, doc_dict = importCorpus.read_docs('/home/andrew/Desktop/Heather_DOCS/TXT_CONVERT',
                                                            doc_dict_fn='heather_doc_dict_n3.dict',
                                                            doc_list_fn='heather_doc_list_n3.list',
                                                            file_dict_fn='heather_file_dict_n3.dict')
 
     #building entity_terms and entity_tuples
-    entity_terms, entity_tuples_unique, entity_tuples_full = nerStanford.stanfordNERStreaming(min_df=0, max_df=.7,
-                                                                   entity_terms_fn='heather_NE_entity_terms.list',
-                                                                   entity_tuples_fn='heather_NE_entity_tuples.list')
-
+    entity_terms, entity_tuples_full = nerStanford.stanfordNERStreaming(min_df=.07, max_df=.7,
+                                                            entity_terms_fn='heather_NE_entity_terms.list',
+                                                            entity_tuples_fn='heather_NE_entity_tuples_all.list')
     #build corpus and dictionary
     print 'building and saving corpus / dictionary'
     corpusTools.build_corpus(entity_terms, corpus_filename='heatherNE_corpus.mm',
@@ -158,7 +204,7 @@ def heatherNER():
     entity_corpus = corpusTools.load_corpus('corpus_dict/heatherNE_corpus.mm')
     entity_dictionary = corpusTools.load_dict('corpus_dict/heatherNE_dictionary.dict')
     doc_dict = importCorpus.load_objs('obj/', 'heather_doc_dict_n3.dict')
-    entity_tuples_full = importCorpus.load_objs('obj/', 'heather_NE_entity_tuples_temp.list')
+    entity_tuples_all = importCorpus.load_objs('obj/', 'heather_NE_entity_tuples_all.list')
     entity_list = importCorpus.load_objs('obj/', 'heather_NE_entity_terms.list')
     '''
     #build models
@@ -180,21 +226,19 @@ def heatherNER():
 
     #getting term stats
     print 'getting term stats'
-    print entity_list
-    u = []
-    [[u.append(y) for y in entity] for entity in entity_list]
-    print u
-    #print ne_list
+    ne_list = []
+    [[ne_list.append(y) for y in entity] for entity in entity_list]
 
     docStats.get_entity_stats(entity_corpus, entity_corpus_tfidf, entity_dictionary, doc_dict,
-                              entity_tuples_full, ne_list=u, writedir='stats', filename='heather.csv')
+                              entity_tuples_all, ne_list=ne_list, writedir='stats', filename='heather_test.csv')
 
 
 def main():
     #NUM_TOPICS = 4
     #cyber_corpus(NUM_TOPICS)
     #heather_corpus(NUM_TOPICS)
-    heatherNER()
+    #heatherNER()
+    cyber_corpus_NE()
 
 if __name__ == '__main__':
     start_time = time.time()
